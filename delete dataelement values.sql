@@ -1,0 +1,3 @@
+--  delete WISN-HMIS data
+delete from datavalueaudit where dataelementid in(select dataelementid from dataelement where uid in('UNGAaBluAZr','Zu4lGKqNwQG','VVTO6QLTuHX','uPYoTOeNpc1','aYskNGpxORy','RFNDmkEFqRK','B9FbXqDNSSs','uriBrU6JdHN'));
+delete from datavalue where dataelementid in(select dataelementid from dataelement where uid in('UNGAaBluAZr','Zu4lGKqNwQG','VVTO6QLTuHX','uPYoTOeNpc1','aYskNGpxORy','RFNDmkEFqRK','B9FbXqDNSSs','uriBrU6JdHN'));
