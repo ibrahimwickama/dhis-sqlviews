@@ -87,7 +87,8 @@ ORDER BY te_attributevalue.trackedentityinstanceid,td2.programstageinstanceid ;
 
 
     --  Procedure to update a new TB No
-    CREATE OR REPLACE FUNCTION updatetbno2( part1 VARCHAR,part2 VARCHAR,part3 VARCHAR, usertrackedentityinstanceid INT, usertrackedentityattributeid INT) RETURNS refcursor AS $$
+    CREATE OR REPLACE FUNCTION updatetbno2( part1 VARCHAR,part2 VARCHAR,part3 VARCHAR, usertrackedentityinstanceid INT, usertrackedentityattributeid INT)
+    RETURNS refcursor AS $$
     DECLARE
       ref refcursor;
     BEGIN
@@ -103,3 +104,7 @@ ORDER BY te_attributevalue.trackedentityinstanceid,td2.programstageinstanceid ;
 
 
     select updatetbno2('0405','2017','2600000',255791,8544)
+
+
+--Simple query to update TB No
+update trackedentityattributevalue set value ='070206/KK/2019/0302' where trackedentityinstanceid = '10817239' and trackedentityattributeid = '15233';
