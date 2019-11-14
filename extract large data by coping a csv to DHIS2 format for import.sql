@@ -25,4 +25,4 @@ where datavalue.dataelementid
          --  from dataset where uid in('zeEp4Xu2GOm','lxYmUYkjLeS','AYmj40WLSo7'))) 
          --  from dataset where uid in('qpcwPcj8D6u','v6wdME3ouXu'))) 
          from dataset where uid in('RG7hkeEv7x3','dtcyjZpWYIJ','uX20zjLKwnb','rtytfWmWpe5','m8qp04vE6di','FyuEje5NeVU','HPliDD2QgHB','QmT1qJVW3mk','MzIN8pjcHDf','DsHpsNC7FHN','KgXoIeNQa3V','L8BlOhMx3gT','aKFn3IjBbzw','bMH05jYfAb6','fv28vbNlRSM','cOQwSuuEXPt'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2014-01-01' and '2014-12-31')) to '/tmp/nsmisDataSetsData2014.csv' with csv header; 
+         and datavalue.periodid in(select periodid from period where startdate between '2019-01-01' and '2019-08-11')) to '/tmp/nsmisDataSetsData2014.csv' with csv header; 

@@ -34,7 +34,7 @@ DECLARE
     rec   record;
 BEGIN
    FOR rec IN
-      SELECT organisationunitid FROM organisationunit WHERE hierarchylevel = 4
+      SELECT organisationunitid FROM organisationunit WHERE hierarchylevel = 3
    LOOP 
         DELETE FROM trackedentitydatavalueaudit WHERE programstageinstanceid IN(SELECT programstageinstanceid FROM programstageinstance
          WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
