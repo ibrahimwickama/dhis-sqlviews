@@ -1,3 +1,3 @@
 --  delete WISN-HMIS data
-delete from datavalueaudit where dataelementid in(select dataelementid from dataelement where uid in('UNGAaBluAZr','Zu4lGKqNwQG','VVTO6QLTuHX','uPYoTOeNpc1','aYskNGpxORy','RFNDmkEFqRK','B9FbXqDNSSs','uriBrU6JdHN'));
-delete from datavalue where dataelementid in(select dataelementid from dataelement where uid in('UNGAaBluAZr','Zu4lGKqNwQG','VVTO6QLTuHX','uPYoTOeNpc1','aYskNGpxORy','RFNDmkEFqRK','B9FbXqDNSSs','uriBrU6JdHN'));
+delete from datavalueaudit where dataelementid in(select dataelementid from dataelement where uid in('UNGAaBluAZr','Zu4lGKqNwQG','VVTO6QLTuHX','uPYoTOeNpc1','RFNDmkEFqRK','B9FbXqDNSSs','uriBrU6JdHN','hcPckUAzNOo','zgqcJexTSES','mjYtUSldSUB','YRdlHOo13F5','ILUizeNRkBi','X3fQm05Z7xs','NMc7zpGg9ay'));
+delete from datavalue where dataelementid in(select dataelementid from dataelement where uid in('UNGAaBluAZr','Zu4lGKqNwQG','VVTO6QLTuHX','uPYoTOeNpc1','RFNDmkEFqRK','B9FbXqDNSSs','uriBrU6JdHN','hcPckUAzNOo','zgqcJexTSES','mjYtUSldSUB','YRdlHOo13F5','ILUizeNRkBi','X3fQm05Z7xs','NMc7zpGg9ay'));

@@ -1,5 +1,6 @@
 select 
 tei.trackedentityinstanceid as instance,
+pi.programid as Programid,
 "Leprosy District number".value as "Leprosy District number",
 "First Name".value as "First Name",
 "Middle Name".value as "Middle Name",
@@ -19,18 +20,14 @@ CAST("Age(in years)".value AS NUMERIC ) as "Age(in years)",
 region.name as "Region name", 
 district.name as "District name",
 ou.name as "Facilities",
-"LEP: Number of patches".value as "LEP: Number of patches", 
-"LEP: Result index of skin smear".value as "LEP: Result index of skin smear",
-"LEP: Site of lesion".value as "LEP: Site of lesion",
-"LEP: Disability grading  at start of treatment".value as "LEP: Disability grading  at start of treatment",
-"LEP: Predinisolone".value as "LEP: Predinisolone",
-"LEP: Regimen".value as "LEP: Regimen",
-"LEP: Footwear size".value as "LEP: Footwear size",
 "LEP: Condition of patient".value as "LEP: Condition of patient",
 "LEP: Treatment outcome".value as "LEP: Treatment outcome",
 "LEP: Disability grading at the end of treatment".value as "LEP: Disability grading at the end of treatment",
+psi1.programinstanceid as "PrograminstanceofSecondStage",
+"LEP: Condition of patient".programstageinstanceid as "programstageinstanceofSecondID",
+psi2.programinstanceid as "PrograminstanceofThirdStage",
+psi2.programstageinstanceid as "programstageinstanceofThirdID",
 date(pi.enrollmentdate) as "Registration date",
-date(psi.executiondate) as "Date of Lab Results",
 date(psi1.executiondate) as "Date of Treatment",
 date(psi2.executiondate) as "Outcome date"
 from trackedentityinstance tei
@@ -38,17 +35,9 @@ inner join programinstance pi on pi.trackedentityinstanceid = tei.trackedentityi
 inner join organisationunit ou on pi.organisationunitid = ou.organisationunitid
 inner join organisationunit district on ou.parentid=district.organisationunitid
 inner join organisationunit region on district.parentid=region.organisationunitid
-left join programstageinstance psi on psi.programinstanceid = pi.programinstanceid and psi.programstageid=15996
 left join programstageinstance psi1 on psi1.programinstanceid = pi.programinstanceid and psi1.programstageid=16239
-left join programstageinstance psi2 on psi2.programinstanceid = pi.programinstanceid and psi2.programstageid=15998
-left join trackedentitydatavalue as "LEP: Number of patches" on "LEP: Number of patches".programstageinstanceid = psi.programstageinstanceid and "LEP: Number of patches".dataelementid = 36124
-left join trackedentitydatavalue as "LEP: Result index of skin smear" on "LEP: Result index of skin smear".programstageinstanceid = psi.programstageinstanceid and "LEP: Result index of skin smear".dataelementid = 16048
-left join trackedentitydatavalue as "LEP: Site of lesion" on "LEP: Site of lesion".programstageinstanceid = psi.programstageinstanceid and "LEP: Site of lesion".dataelementid = 15993
-left join trackedentitydatavalue as "LEP: Disability grading  at start of treatment" on "LEP: Disability grading  at start of treatment".programstageinstanceid = psi1.programstageinstanceid and "LEP: Disability grading  at start of treatment".dataelementid = 16051
-left join trackedentitydatavalue as "LEP: Predinisolone" on "LEP: Predinisolone".programstageinstanceid = psi1.programstageinstanceid and "LEP: Predinisolone".dataelementid = 8299
-left join trackedentitydatavalue as "LEP: Regimen" on "LEP: Regimen".programstageinstanceid = psi1.programstageinstanceid and "LEP: Regimen".dataelementid = 16050
-left join trackedentitydatavalue as "LEP: Footwear size" on "LEP: Footwear size".programstageinstanceid = psi1.programstageinstanceid and "LEP: Footwear size".dataelementid = 16263
-left join trackedentitydatavalue as "LEP: Condition of patient" on "LEP: Condition of patient".programstageinstanceid = psi2.programstageinstanceid and "LEP: Condition of patient".dataelementid = 16057
+left join programstageinstance psi2 on psi2.programinstanceid = pi.programinstanceid and psi2.programstageid=22532382
+left join trackedentitydatavalue as "LEP: Condition of patient" on "LEP: Condition of patient".programstageinstanceid = psi1.programstageinstanceid and "LEP: Condition of patient".dataelementid = 16057
 left join trackedentitydatavalue as "LEP: Treatment outcome" on "LEP: Treatment outcome".programstageinstanceid = psi2.programstageinstanceid and "LEP: Treatment outcome".dataelementid = 16248
 left join trackedentitydatavalue as "LEP: Disability grading at the end of treatment" on "LEP: Disability grading at the end of treatment".programstageinstanceid = psi2.programstageinstanceid and "LEP: Disability grading at the end of treatment".dataelementid = 16052
 left join te_attributevalue as "Leprosy District number" on "Leprosy District number".trackedentityinstanceid = tei.trackedentityinstanceid and "Leprosy District number".trackedentityattributeid = 15802
@@ -68,10 +57,13 @@ left join te_attributevalue as "Classification of leprosy" on "Classification of
 left join te_attributevalue as "LEP: Registration group" on "LEP: Registration group".trackedentityinstanceid = tei.trackedentityinstanceid and "LEP: Registration group".trackedentityattributeid = 19096 
 left join te_attributevalue as "HIV status" on "HIV status".trackedentityinstanceid = tei.trackedentityinstanceid and "HIV status".trackedentityattributeid = 18211 
 where pi.organisationunitid IN(select organisationunitid FROM organisationunit WHERE path like '%${oranisatiounituid}%') and pi.enrollmentdate BETWEEN  '${startDate}' AND '${endDate}' 
-and pi.programid = 15797  AND pi.deleted is false
+and pi.programid = 22532455  AND pi.deleted is false
 group by
 "Registration date",
 instance,
+Programid,
+"PrograminstanceofSecondStage",
+"PrograminstanceofThirdStage",
 "Leprosy District number",
 "First Name",
 "Middle Name",
@@ -91,16 +83,10 @@ instance,
 "Region name", 
 "District name",
 "Facilities",
-"LEP: Number of patches", 
-"LEP: Result index of skin smear",
-"LEP: Site of lesion",
-"LEP: Disability grading  at start of treatment",
-"LEP: Predinisolone",
-"LEP: Regimen",
-"LEP: Footwear size",
 "LEP: Condition of patient",
+"programstageinstanceofSecondID",
 "LEP: Treatment outcome",
 "LEP: Disability grading at the end of treatment",
-"Date of Lab Results",
+"programstageinstanceofThirdID",
 "Date of Treatment",
 "Outcome date";
