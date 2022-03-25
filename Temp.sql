@@ -1,17 +1,58 @@
-select dv.sourceid,ou.uid as organisationUnitId,ou.name as organisationUnitName, ou.path as organisationunitPath ,dv.value,ps.iso,de.name as dataElementName,coc.name as categoryOptionName from datavalue dv 
-inner join dataelement de on dv.dataelementid=de.dataelementid
-inner join datasetelement dse on dse.dataelementid=de.dataelementid
-inner join dataset ds on ds.datasetid=dse.datasetid
-inner join organisationunit ou on ou.organisationunitid=dv.sourceid
-inner join _periodstructure ps on ps.periodid=dv.periodid
-inner join categoryoptioncombo coc on coc.categoryoptioncomboid=dv.categoryoptioncomboid
-where ds.uid='uMV8HPjFpjf'
-and de.uid in('zGJFOiPn0Eh','Wi04TcVks3h','ZZpXBBzETFJ','SZAyDmdWM3m','jXEUqQSt4dx','DTBWEAWgqUc',
-  'ir4VYuJYJOJ','MYO1slQ2Hyh','TH6WeXrey99','xD1aMIBl2I7','SFsfVCemVPh','E3V32diLsB1','nyOhXy6g8NP',
-  'icRKuxRMJsa','R5zLV1L1AwG','vSUGNwUzq9I','EKOoVR76QDf','Mv82eKjwpCe','wF3wWw5YEo5','qOKAmTV6Ppz',
-  'vZZVleMx08Z','Tdj0yyC2qTy','lNlSf2d4Pyf','YICpcRHCvKO','TVOTNWA5x9H','X8QiB00k9DJ','PxI5VvEiXao','ydrsK20LBJD','dC4zqNLTgoB',
-  'Yp6630c5ZJh','XB3PYuOyUOe','bxeWT7dsAjD','sKcdWRV7Ciq','Enf7N2DmULY','tgg7EpAzvrp','tUGw1hUYs8T',
-  'i8jYvLfzNVG','SeH4cqfDK32','Yos0QGlxLBi','SeH4cqfDK32','Yos0QGlxLBi')
-and dv.value is not null
-and ou.path like '%${oranisatiounituid}%'
-and dv.periodid in(select periodid from period where startdate between '${startDate}' and '${endDate}') group by dv.sourceid,ou.uid, ou.path,ou.name,dv.value,ps.iso,de.name,coc.name;
+
+
+SELECT ds.datasetid as dsid,ds.uid as dsuid,ds.name as dsname,ou.organisationunitid as ouid,ou.uid as ouuid,ou.name as ouname 
+FROM datasetsource dsource
+INNER JOIN organisationunit ou on ou.organisationunitid = dsource.sourceid
+LEFT JOIN dataset ds on ds.datasetid = dsource.datasetid LIMIT 10;
+
+-- get all un-assigned orgunits to dataset 
+select organisationunitid
+from organisationunit 
+where organisationunitid NOT IN(SELECT sourceid from datasetsource where datasetid in(select datasetid from dataset where uid='u0bHSwROTdt'));
+
+
+// event BaA4ayPFig1
+
+
+select 
+d.uid as "Region UID",
+d.name as "Region Name",
+c.name as "District Name",
+c.uid as "District UID",
+b.closeddate as "Closed Date",
+b.name as "Facility Name",
+b.shortname as "Facility shortname",
+b.code as "Facility code",
+b.uid as "Facility UID",
+g."Ownership" as "Ownerships",
+g."Type",
+count(ds.datasetid) as "Number of Assigned Datasets" 
+from _orgunitstructure a 
+left outer join organisationunit b on a.organisationunitid = b.organisationunitid 
+left outer join organisationunit c on a.idlevel3 = c.organisationunitid 
+inner join _organisationunitgroupsetstructure g on g.organisationunitid = b.organisationunitid 
+left outer join organisationunit d on a.idlevel2 = d.organisationunitid 
+full outer join datasetsource ds on a.organisationunitid = ds.sourceid 
+where a.level = 4 and b.closeddate is not null group by "Region UID", "Region Name", "District Name", "District UID", "Closed Date", "Facility Name", "Facility shortname","Facility code", "Facility UID","Ownerships", "Type" order by "Region Name", "District Name", "Facility Name" 
+
+
+
+
+DELETE FROM datasetsource where sourceid in(select organisationunitid from organisationunit where hierarchylevel = 4 and closeddate is not null);
+docker exec -it hmismain-db psql -U dhismain -a dhis -c 'DELETE FROM datasetsource where sourceid in(select organisationunitid from organisationunit where hierarchylevel = 4 and closeddate is not null);'
+
+
+
+-- check on completedatasetregistration table 
+-- completedatasetregistration
+select * from completedatasetregistration where completed IS NOT TRUE limit 20;
+-- check completenesstarget 
+select * from completenesstarget limit 10;
+
+
+
+
+
+
+select none(ax."uochSI2xLGI") as value,ax."monthly" from analytics_event_mvc0jfu9ua2 as ax where ax."monthly" in ('202201', '202202') and (ax."uidlevel3" = 'vo788oc0NEn' ) and ax."yearly" in ('2022') group by ax."monthly";
+

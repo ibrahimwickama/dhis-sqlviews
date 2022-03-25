@@ -20,9 +20,5 @@ where datavalue.dataelementid
      from datasetelement 
      where datasetid 
        in(select datasetid 
-         -- ~from dataset where uid in('TfoI3vTGv1f'))) 
-         -- from dataset where uid in('Dp0VF7ssmcH'))) 
-         --  from dataset where uid in('zeEp4Xu2GOm','lxYmUYkjLeS','AYmj40WLSo7'))) 
-         --  from dataset where uid in('qpcwPcj8D6u','v6wdME3ouXu'))) 
-         from dataset where uid in('RG7hkeEv7x3','dtcyjZpWYIJ','uX20zjLKwnb','rtytfWmWpe5','m8qp04vE6di','FyuEje5NeVU','HPliDD2QgHB','QmT1qJVW3mk','MzIN8pjcHDf','DsHpsNC7FHN','KgXoIeNQa3V','L8BlOhMx3gT','aKFn3IjBbzw','bMH05jYfAb6','fv28vbNlRSM','cOQwSuuEXPt'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2019-01-01' and '2019-08-11')) to '/tmp/nsmisDataSetsData2014.csv' with csv header; 
+         from dataset where uid in('RpeHQ2saIRg','mU6qzGINdKw','cBPkl0M6T9I','Pw3c2BcqbQ5','xewWZMYbqYc','lxYmUYkjLeS','cap79mdf6Co','qpcwPcj8D6u','v6wdME3ouXu','ZOvFj2vtlor','Dp0VF7ssmcH'))) 
+         and datavalue.periodid in(select periodid from period where startdate between '2021-10-01' and '2021-12-31')) to '/tmp/hmisportalData2021Q4.csv' with csv header; 

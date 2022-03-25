@@ -34,24 +34,59 @@ DECLARE
     rec   record;
 BEGIN
    FOR rec IN
-      SELECT organisationunitid FROM organisationunit WHERE hierarchylevel = 3
+      SELECT organisationunitid FROM organisationunit WHERE hierarchylevel = 4
    LOOP 
         DELETE FROM trackedentitydatavalueaudit WHERE programstageinstanceid IN(SELECT programstageinstanceid FROM programstageinstance
          WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
-        WHERE executiondate >= '2018-01-01' AND executiondate < '2020-01-01' AND organisationunitid = rec.organisationunitid
+        WHERE executiondate >= '2020-01-01' AND executiondate < '2020-12-30' AND organisationunitid = rec.organisationunitid
         GROUP BY organisationunitid, programstageinstanceid
         ORDER BY lastupdated DESC LIMIT 1
         ) AND organisationunitid = rec.organisationunitid);
 
         DELETE FROM trackedentitydatavalue WHERE programstageinstanceid IN(SELECT programstageinstanceid FROM programstageinstance
         WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
-        WHERE executiondate >= '2018-01-01' AND executiondate < '2020-01-01' AND organisationunitid = rec.organisationunitid
+        WHERE executiondate >= '2020-01-01' AND executiondate < '2020-12-30' AND organisationunitid = rec.organisationunitid
         GROUP BY organisationunitid, programstageinstanceid
         ORDER BY lastupdated DESC LIMIT 1
         ) AND organisationunitid = rec.organisationunitid);
 
         DELETE FROM programstageinstance WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
-        WHERE executiondate >= '2018-01-01' AND executiondate < '2020-01-01' AND organisationunitid = rec.organisationunitid
+        WHERE executiondate >= '2020-01-01' AND executiondate < '2020-12-30' AND organisationunitid = rec.organisationunitid
+        GROUP BY organisationunitid, programstageinstanceid
+        ORDER BY lastupdated DESC LIMIT 1
+        ) AND organisationunitid = rec.organisationunitid;
+
+        raise notice 'Deleted on organisationunitid: %', rec.organisationunitid;
+
+   END LOOP;
+END
+$$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION deleteOldEvents() RETURNS void AS $$
+DECLARE
+    rec   record;
+BEGIN
+   FOR rec IN
+      SELECT organisationunitid FROM organisationunit WHERE hierarchylevel = 4
+   LOOP 
+        DELETE FROM trackedentitydatavalueaudit WHERE programstageinstanceid IN(SELECT programstageinstanceid FROM programstageinstance
+         WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
+        WHERE executiondate >= '2020-01-01' AND executiondate < '2020-12-30' AND organisationunitid = rec.organisationunitid
+        GROUP BY organisationunitid, programstageinstanceid
+        ORDER BY lastupdated DESC LIMIT 1
+        ) AND organisationunitid = rec.organisationunitid);
+
+        DELETE FROM trackedentitydatavalue WHERE programstageinstanceid IN(SELECT programstageinstanceid FROM programstageinstance
+        WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
+        WHERE executiondate >= '2020-01-01' AND executiondate < '2020-12-30' AND organisationunitid = rec.organisationunitid
+        GROUP BY organisationunitid, programstageinstanceid
+        ORDER BY lastupdated DESC LIMIT 1
+        ) AND organisationunitid = rec.organisationunitid);
+
+        DELETE FROM programstageinstance WHERE programstageinstanceid NOT IN(SELECT programstageinstanceid FROM programstageinstance psi
+        WHERE executiondate >= '2020-01-01' AND executiondate < '2020-12-30' AND organisationunitid = rec.organisationunitid
         GROUP BY organisationunitid, programstageinstanceid
         ORDER BY lastupdated DESC LIMIT 1
         ) AND organisationunitid = rec.organisationunitid;
