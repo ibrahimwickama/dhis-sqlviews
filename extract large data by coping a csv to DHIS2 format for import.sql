@@ -20,5 +20,5 @@ where datavalue.dataelementid
      from datasetelement 
      where datasetid 
        in(select datasetid 
-         from dataset where uid in('RpeHQ2saIRg','mU6qzGINdKw','cBPkl0M6T9I','Pw3c2BcqbQ5','xewWZMYbqYc','lxYmUYkjLeS','cap79mdf6Co','qpcwPcj8D6u','v6wdME3ouXu','ZOvFj2vtlor','Dp0VF7ssmcH'))) 
+         from dataset where uid in('RpeHQ2saIRg','mU6qzGINdKw','cBPkl0M6T9I','Pw3c2BcqbQ5','xewWZMYbqYc','lxYmUYkjLeS','cap79mdf6Co','qpcwPcj8D6u','v6wdME3ouXu','ZOvFj2vtlor','Dp0VF7ssmcH','ExX34Bpv0qN','f8QXtGOYdbb'))) 
          and datavalue.periodid in(select periodid from period where startdate between '2021-10-01' and '2021-12-31')) to '/tmp/hmisportalData2021Q4.csv' with csv header; 

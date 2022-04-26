@@ -15,3 +15,62 @@ delete from datavalue where sourceid=(select organisationunitid from organisatio
 
 -- then finally delete the ouToRemove
 delete from organisationunit where uid in('ouUidToRemove');
+
+
+-- Procedure function to migrate datavalues 
+CREATE OR REPLACE FUNCTION transferOUdatavalues(ouUidToRemove BIGINT,ouUidToRemain BIGINT) RETURNS void AS $$
+DECLARE
+    dv   record;
+BEGIN
+    -- Get all datsets
+    FOR dv IN SELECT * FROM datavalue WHERE sourceid=ouUidToRemove
+    LOOP
+        -- Now delete this orgunits with current data from analytics completeness table
+        IF ((SELECT count(*) FROM datavalue WHERE sourceid=ouUidToRemain AND periodid=dv.periodid AND dataelementid=dv.dataelementid AND categoryoptioncomboid=dv.categoryoptioncomboid AND attributeoptioncomboid=dv.attributeoptioncomboid) >= 1)
+        THEN
+            EXECUTE 'UPDATE datavalue SET sourceid='|| ouUidToRemain ||' WHERE periodid=' || dv.periodid ||' AND sourceid=' || dv.sourceid ||' AND dataelementid='|| dv.dataelementid ||' AND categoryoptioncomboid='|| dv.categoryoptioncomboid ||' AND attributeoptioncomboid='|| dv.attributeoptioncomboid ||' AND NOT EXISTS(SELECT 1 FROM datavalue WHERE sourceid='|| ouUidToRemain ||' AND periodid='|| dv.periodid ||' AND dataelementid='|| dv.dataelementid ||' AND categoryoptioncomboid='|| dv.categoryoptioncomboid ||' AND attributeoptioncomboid='|| dv.attributeoptioncomboid ||');';
+		    raise notice 'Updated a row';
+        ELSE 
+            raise notice 'Record with same value found, IGNORED';
+        END IF;
+    END LOOP;
+
+END
+$$
+LANGUAGE plpgsql;
+
+
+-- Procedure function to transfer tracker/event data
+CREATE OR REPLACE FUNCTION transferOUtrackerdata(ouUidToRemove BIGINT,ouUidToRemain BIGINT) RETURNS void AS $$
+DECLARE
+    -- dv   record;
+BEGIN
+    -- Update and delete orgunit info
+    EXECUTE 'UPDATE datavalueaudit SET organisationunitid='|| ouUidToRemain ||' WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'UPDATE trackedentityinstance SET organisationunitid='|| ouUidToRemain ||' WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'UPDATE programinstance SET organisationunitid='|| ouUidToRemain ||' WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'UPDATE programstageinstance SET organisationunitid='|| ouUidToRemain ||' WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'UPDATE trackedentityprogramowner SET organisationunitid='|| ouUidToRemain ||' WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from datavalue WHERE sourceid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from datavalueaudit WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from completedatasetregistration WHERE sourceid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from datasetsource WHERE sourceid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from orgunitgroupmembers WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from program_organisationunits WHERE organisationunitid='|| ouUidToRemove ||';';
+    EXECUTE 'DELETE from organisationunit WHERE organisationunitid='|| ouUidToRemove ||';';
+
+END
+$$
+LANGUAGE plpgsql;
+
+
+
+-- now how to use the functions 
+select transferOUdatavalues(4469116,5905852);
+select transferOUtrackerdata(4469116,5905852);
+
+
+
+
+
+
