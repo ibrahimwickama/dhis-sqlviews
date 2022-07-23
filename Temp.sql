@@ -84,213 +84,9 @@ where datavalue.dataelementid
      from datasetelement 
      where datasetid 
        in(select datasetid 
-         from dataset where uid in('Pw3c2BcqbQ5'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-07-01' and '2021-09-30')) to '/tmp/anchmisportalData2021Q3.csv' with csv header;
+         from dataset where uid in('FLR8w9ntW1R'))) 
+         and datavalue.periodid in(select periodid from period where startdate between '2012-01-01' and '2023-12-31')) to '/tmp/population.csv' with csv header;
 
-
-
-
-
-
--- batch1
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('RpeHQ2saIRg'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-09-30')) to '/tmp/batch1.csv' with csv header; 
-
--- batch2
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('mU6qzGINdKw'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-09-30')) to '/tmp/batch2.csv' with csv header; 
-
--- batch3
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('cBPkl0M6T9I'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-09-30')) to '/tmp/batch3.csv' with csv header; 
-
--- batch4
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('Pw3c2BcqbQ5'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-09-30')) to '/tmp/batch4.csv' with csv header; 
-
--- batch5
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('xewWZMYbqYc'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-09-30')) to '/tmp/batch5.csv' with csv header; 
-
--- batch6
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('lxYmUYkjLeS','cap79mdf6Co','qpcwPcj8D6u','v6wdME3ouXu','ZOvFj2vtlor','Dp0VF7ssmcH','ExX34Bpv0qN'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-09-30')) to '/tmp/batch6.csv' with csv header; 
-
---batch7
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('f8QXtGOYdbb'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-12-31')) to '/tmp/batch7.csv' with csv header; 
-
---batch8
-copy(select dataelement.uid as dataelement,
-_periodstructure.iso as period,
-organisationunit.uid as orgunit,
-coc1.uid as categoryoptioncombouid ,
-coc2.uid as attributeoptioncombouid,
-datavalue.value as value,
-datavalue.storedby as storedby,
-date(datavalue.lastupdated) as lastupdated,
-datavalue.comment as comment,
-datavalue.followup as followup,
-datavalue.deleted as deleted
-from datavalue inner join dataelement using(dataelementid) 
-inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
-inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
-inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
-inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid 
-  in(select dataelementid 
-     from datasetelement 
-     where datasetid 
-       in(select datasetid 
-         from dataset where uid in('JNSXD4t9Jrw'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-12-31')) to '/tmp/batch8.csv' with csv header; 
 
 
 
@@ -303,3 +99,61 @@ DELETE from datasetsource WHERE sourceid=4469951;
 DELETE from orgunitgroupmembers WHERE organisationunitid=4469951;
 DELETE from program_organisationunits WHERE organisationunitid=4469951;
 DELETE from organisationunit WHERE organisationunitid=4469951;
+
+
+
+
+CREATE OR REPLACE VIEW persondetails AS
+ SELECT userinfo.userinfoid,
+    users.username,
+    users.lastlogin,
+    users.disabled,
+    users.passwordlastupdated,
+    userinfo.surname,
+    userinfo.firstname,
+    userinfo.email,
+    userinfo.phonenumber,
+    userinfo.uid,
+    userinfo.code,
+    userinfo.lastupdated,
+    userinfo.jobtitle,
+    userinfo.lastcheckedinterpretations,
+    userinfo.introduction,
+    userinfo.gender,
+    userinfo.birthday,
+    userinfo.nationality,
+    userinfo.employer,
+    userinfo.education,
+    userinfo.interests,
+    userinfo.languages,
+    userinfo.created,
+    ( SELECT replace(replace(replace((ARRAY( SELECT userrole.name
+                   FROM userrolemembers
+                     JOIN userrole ON userrole.userroleid = userrolemembers.userroleid
+                  WHERE userrolemembers.userid = users.userid))::text, '{'::text, ''::text), '}'::text, ''::text), '"'::text, ''::text) AS replace) AS userroles,
+    ( SELECT replace(replace(replace((ARRAY( SELECT organisationunit.name
+                   FROM usermembership
+                     JOIN organisationunit ON organisationunit.organisationunitid = usermembership.organisationunitid
+                  WHERE usermembership.userinfoid = users.userid))::text, '{'::text, ''::text), '}'::text, ''::text), '"'::text, ''::text) AS replace) AS userorganisationunits,
+    ( SELECT replace(replace(replace((ARRAY( SELECT organisationunit.uid
+                   FROM usermembership
+                     JOIN organisationunit ON organisationunit.organisationunitid = usermembership.organisationunitid
+                  WHERE usermembership.userinfoid = users.userid))::text, '{'::text, ''::text), '}'::text, ''::text), '"'::text, ''::text) AS replace) AS userorganisationunitsuid,
+    creatoruserinfo.surname AS creatorsurname,
+    creatoruserinfo.firstname AS creatorfirstname,
+    creatoruserinfo.email AS creatoremail,
+    creatoruserinfo.phonenumber AS creatorphonenumber
+   FROM userinfo
+     JOIN users ON users.userid = userinfo.userinfoid
+     JOIN userinfo creatoruserinfo ON creatoruserinfo.userinfoid = users.userid
+  ORDER BY users.created;
+
+
+
+alter table sequentialnumbercounter alter column id type bigint;
+
+select * from datavalue where length(value) > 10;  
+-- delete from datavalue where length(value) > 10;   
+
+
+
