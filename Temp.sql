@@ -157,3 +157,90 @@ select * from datavalue where length(value) > 10;
 
 
 
+-- delete datavalues of dataElements assigned on a dataset 
+select * from datavalue where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid='MjO0xdyZSnO'));
+delete from datavalueaudit where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid='MjO0xdyZSnO'));
+delete from datavalue where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid='MjO0xdyZSnO'));
+
+
+
+
+
+
+select * from analytics_completeness_2020 where monthly='202001' and dx='v6wdME3ouXu' and uidlevel3='lgZ6HfZaj3f';
+
+
+copy(
+  select comp.*,ou.name
+  from analytics_completeness_2020 comp
+  inner join organisationunit ou on ou.uid=comp.uidlevel4
+  where monthly='202001' and dx='v6wdME3ouXu' and uidlevel3='lgZ6HfZaj3f'
+  ) to '/tmp/comp_2020.csv' with csv header;
+
+
+
+copy(select trackedentityinstanceid, trackedentityattributeid,value 
+from trackedentityattributevalue ) to '/tmp/all-teav.csv' with csv header;
+
+
+select trackedentityinstanceid,trackedentityattributeid,value,storedby
+from 
+  ( select *, 
+           count(1) over (partition by trackedentityinstanceid) as occurs
+    from trackedentityattributevalue where trackedentityattributeid=11312
+  ) AS t 
+where occurs < 2;
+
+
+delete from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid
+from 
+  ( select *, 
+           count(1) over (partition by trackedentityinstanceid) as occurs
+    from trackedentityattributevalue where trackedentityattributeid=11312
+  ) AS t 
+where occurs < 2);
+
+
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('QOv0U6j6c60','a0B6cUc60pU','k6vvj0vvpUU','vpvBBcUvHjp','vp6jv0jUHOc','qOj0vBOppvc','A0jpppBpUjB','ABpHpHUHOvO','QUU6HB0O066','AppjvUOpOBO','ABUpHpj6cB0','f0U6U60vv06','AHjHU0pO0HO','qcpcBvpUHUj','FO6666UB6B0','qUc6pHHB60c','vBUUvj0ccjH','fUUUHUvcvUU'));
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('QOv0U6j6c60','a0B6cUc60pU','k6vvj0vvpUU','vpvBBcUvHjp','vp6jv0jUHOc','qOj0vBOppvc','A0jpppBpUjB','ABpHpHUHOvO','QUU6HB0O066','AppjvUOpOBO','ABUpHpj6cB0','f0U6U60vv06','AHjHU0pO0HO','qcpcBvpUHUj','FO6666UB6B0','qUc6pHHB60c','vBUUvj0ccjH','fUUUHUvcvUU'));
+delete from programinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('QOv0U6j6c60','a0B6cUc60pU','k6vvj0vvpUU','vpvBBcUvHjp','vp6jv0jUHOc','qOj0vBOppvc','A0jpppBpUjB','ABpHpHUHOvO','QUU6HB0O066','AppjvUOpOBO','ABUpHpj6cB0','f0U6U60vv06','AHjHU0pO0HO','qcpcBvpUHUj','FO6666UB6B0','qUc6pHHB60c','vBUUvj0ccjH','fUUUHUvcvUU'));
+delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('QOv0U6j6c60','a0B6cUc60pU','k6vvj0vvpUU','vpvBBcUvHjp','vp6jv0jUHOc','qOj0vBOppvc','A0jpppBpUjB','ABpHpHUHOvO','QUU6HB0O066','AppjvUOpOBO','ABUpHpj6cB0','f0U6U60vv06','AHjHU0pO0HO','qcpcBvpUHUj','FO6666UB6B0','qUc6pHHB60c','vBUUvj0ccjH','fUUUHUvcvUU'));
+delete from trackedentityinstance where uid in('QOv0U6j6c60','a0B6cUc60pU','k6vvj0vvpUU','vpvBBcUvHjp','vp6jv0jUHOc','qOj0vBOppvc','A0jpppBpUjB','ABpHpHUHOvO','QUU6HB0O066','AppjvUOpOBO','ABUpHpj6cB0','f0U6U60vv06','AHjHU0pO0HO','qcpcBvpUHUj','FO6666UB6B0','qUc6pHHB60c','vBUUvj0ccjH','fUUUHUvcvUU');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dhis=#                                                                                                                                                                                                                                                                                      
+dhis=# select * from _dataelementgroupsetstructure where dataelementid=2182804483;                                                                                                                                                                                                          
+ dataelementid | dataelementname                                                                                                                                                                                                                                                            
+---------------+-----------------                                                                                                                                                                                                                                                           
+    2182804483 | Data Element 1                                                                                                                                                                                                                                                             
+(1 row)                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                            
+dhis=#                                                                                                                                                                                                                                                                                      
+dhis=# select * from _dataelementstructure where dataelementid=2182804483;                                                                                                                                                                                                                  
+ dataelementid | dataelementuid | dataelementname | datasetid  | datasetuid  |   datasetname   | datasetapprovallevel | workflowid | periodtypeid | periodtypename                                                                                                                          
+---------------+----------------+-----------------+------------+-------------+-----------------+----------------------+------------+--------------+----------------                                                                                                                         
+    2182804483 | H8JOTF3R2Kv    | Data Element 1  | 2182804485 | nP4XeDs7aV5 | Testing Dataset |                    0 |            |            3 | Monthly                                                                                                                                 
+(1 row)
+
+dhis=# 
+dhis=# select * from dataelement where dataelementid=2182804483;
+ dataelementid |      name      |   shortname    | code | description | valuetype | domaintype | aggregationtype | categorycomboid | url |       lastupdated       | zeroissignificant |     uid     | formname | optionsetid |         created         |  userid  | publicaccess | commentoptionsetid | lastupdatedby | style | fieldmask | translations | attributevalues |                                             sharing                                              | valuetypeoptions 
+---------------+----------------+----------------+------+-------------+-----------+------------+-----------------+-----------------+-----+-------------------------+-------------------+-------------+----------+-------------+-------------------------+----------+--------------+--------------------+---------------+-------+-----------+--------------+-----------------+--------------------------------------------------------------------------------------------------+------------------
+    2182804483 | Data Element 1 | Data Element 1 |      |             | NUMBER    | AGGREGATE  | SUM             |              12 |     | 2022-11-11 13:08:13.392 | f                 | H8JOTF3R2Kv |          |             | 2022-11-11 13:08:13.392 | 44309194 |              |                    |      44309194 |       |           | []           | {}              | {"owner": "OQ1iLIwJXAl", "users": {}, "public": "rw------", "external": false, "userGroups": {}} | 
+(1 row)

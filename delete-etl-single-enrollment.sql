@@ -1,5 +1,5 @@
-delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where uid='rb8qzubM0Ty');
-delete from programinstance where uid='rb8qzubM0Ty';
+delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where uid='EYBG2f6X8Yc');
+delete from programinstance where uid='EYBG2f6X8Yc';
 
 
 -- Delete a duplicate enrollment
