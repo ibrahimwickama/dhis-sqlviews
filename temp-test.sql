@@ -44,7 +44,7 @@ WHERE dataset.uid = 'fiDtcNUzKI6');
 
 
 
-select * from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityattributevalue where value='050801102583-2/KK/2022/170');
+select * from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityattributevalue where value='180601100474-6/KK/2022/32');
 select * from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityattributevalue where value='701020701/KK/ /19');
 
 delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('BaDPvl29igI','JWRIt63SGg1'));
@@ -373,3 +373,9 @@ where datavalue.dataelementid in(select dataelementid from dataelement where uid
 
 
 insert into datavalue (select * from tempdatamigration) ON CONFLICT (dataelementid, periodid, sourceid, categoryoptioncomboid, attributeoptioncomboid) DO NOTHING;
+
+
+
+delete from userrolemembers cascade where userid in(select userid from users cascade where username not in('username'));
+delete from previouspasswords cascade where userid in(select userid from users cascade where username not in('username'));
+delete from users cascade where username not in('username');
