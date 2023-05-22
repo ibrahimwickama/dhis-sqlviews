@@ -33,6 +33,10 @@ CREATE OR REPLACE VIEW persondetails AS
                    FROM usermembership
                      JOIN organisationunit ON organisationunit.organisationunitid = usermembership.organisationunitid
                   WHERE usermembership.userinfoid = users.userid))::text, '{'::text, ''::text), '}'::text, ''::text), '"'::text, ''::text) AS replace) AS userorganisationunits,
+   ( SELECT replace(replace(replace((ARRAY( SELECT organisationunit.uid
+                   FROM usermembership
+                     JOIN organisationunit ON organisationunit.organisationunitid = usermembership.organisationunitid
+                  WHERE usermembership.userinfoid = users.userid))::text, '{'::text, ''::text), '}'::text, ''::text), '"'::text, ''::text) AS replace) AS userorganisationunitsuid,
     creatoruserinfo.surname AS creatorsurname,
     creatoruserinfo.firstname AS creatorfirstname,
     creatoruserinfo.email AS creatoremail,
@@ -97,4 +101,7 @@ CREATE OR REPLACE VIEW persondetailsadvanced AS
   ORDER BY users.created;
 
 
-  userdatavieworgunits
+
+
+
+CREATE VIEW te_userinfo as select * from userinfo;

@@ -84,8 +84,8 @@ where datavalue.dataelementid
      from datasetelement 
      where datasetid 
        in(select datasetid 
-         from dataset where uid in('FLR8w9ntW1R'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2012-01-01' and '2023-12-31')) to '/tmp/population.csv' with csv header;
+         from dataset where uid in('NDcgQeGaJC9'))) 
+         and datavalue.periodid in(select periodid from period where startdate between '2022-03-06' and '2023-03-12')) to '/tmp/eidsr-weekly-data.csv' with csv header;
 
 
 
@@ -255,6 +255,149 @@ drop table reporttable cascade;
 ALTER TABLE smscodes ALTER COLUMN optionid TYPE integer;
 
 
+select datasetid,uid,name,expirydays from dataset where name ilike '%NACP%';
+update dataset set expirydays=160 where name not ilike '%NACP%';
 
 
---- SELECT deleteTBpatientByTBNo('${tbNumber}' );
+
+
+SELECT DISTINCT  
+       te_userinfo.firstname,
+       te_userinfo.surname,
+       te_userinfo.username,
+       te_userinfo.phonenumber,
+       te_userinfo.email,
+       facility.name AS facility,
+       facility.uid AS facilityID,
+       facility.district,
+       facility.districtid,
+       facility.region,
+       facility.regionid,
+     te_userinfo.uid AS useruid
+FROM te_userinfo
+INNER JOIN usermembership member
+ON member.userinfoid = te_userinfo.userinfoid
+INNER JOIN (
+	SELECT facility.organisationunitid AS id, 
+               facility.uid,
+	       facility.name,
+               district.district,
+               district.districtid,
+               district.region,
+               district.regionid
+        FROM organisationunit facility
+        INNER JOIN (
+            SELECT d.organisationunitid AS id, 
+	           d.name AS district,
+                   d.uid AS districtid,
+                   (SELECT name
+                    FROM organisationunit
+                    WHERE organisationunitid = d.parentid) AS region,
+            (SELECT uid
+                    FROM organisationunit
+                    WHERE organisationunitid = d.parentid) AS regionid
+            FROM organisationunit d
+            WHERE hierarchylevel = 3
+            ) district
+        ON facility.parentid = district.id
+        WHERE hierarchylevel = 4
+        ) facility
+ ON member.organisationunitid = facility.id
+ ORDER BY te_userinfo.firstname ASC;
+
+
+-- Dataset submission query
+SELECT DISTINCT
+      (SELECT name
+       FROM organisationunit
+       WHERE organisationunitid=parent.parentid
+      ) as grandparentname,
+       parent.name as parentname,
+        outer_orgunit.name,
+        outer_orgunit.uid,
+        outer_orgunit.hierarchylevel as level,
+
+	(
+		SELECT COUNT(*)
+		FROM completedatasetregistration
+		INNER JOIN organisationunit inner_orgunit_completed
+		ON inner_orgunit_completed.organisationunitid=completedatasetregistration.sourceid
+		INNER JOIN dataset
+		ON dataset.datasetid=completedatasetregistration.datasetid
+		INNER JOIN _periodstructure
+		ON _periodstructure.periodid=completedatasetregistration.periodid
+		WHERE inner_orgunit_completed.path ilike '%'||outer_orgunit.uid||'%'
+			AND dataset.uid='${datasetId}'
+			AND _periodstructure.iso='${period}' AND completedatasetregistration.sourceid IN (
+                                   SELECT datasetsource.sourceid
+		                   FROM datasetsource
+		                   INNER JOIN organisationunit inner_orgunit_expected
+		                  ON inner_orgunit_expected.organisationunitid=datasetsource.sourceid
+		                   INNER JOIN dataset
+		                  ON dataset.datasetid=datasetsource.datasetid
+		                  WHERE inner_orgunit_expected.path ilike '%'||outer_orgunit.uid||'%'
+			          AND dataset.uid='${datasetId}'
+                             )
+
+	) as completed,
+	(
+		SELECT count(*)
+		FROM datasetsource
+		INNER JOIN organisationunit inner_orgunit_expected
+		ON inner_orgunit_expected.organisationunitid=datasetsource.sourceid
+		INNER JOIN dataset
+		ON dataset.datasetid=datasetsource.datasetid
+		WHERE inner_orgunit_expected.path ilike '%'||outer_orgunit.uid||'%'
+			AND dataset.uid='${datasetId}'
+
+	) as expected,
+	(
+	SELECT COUNT(*) 
+		FROM completedatasetregistration
+		INNER JOIN organisationunit inner_orgunit_timely
+		ON inner_orgunit_timely.organisationunitid=completedatasetregistration.sourceid
+		INNER JOIN dataset
+		ON dataset.datasetid=completedatasetregistration.datasetid
+		INNER JOIN _periodstructure
+		ON _periodstructure.periodid=completedatasetregistration.periodid
+		WHERE inner_orgunit_timely.path ilike '%'||outer_orgunit.uid||'%'
+			AND dataset.uid='${datasetId}'
+			AND _periodstructure.iso='${period}'
+			AND completedatasetregistration.date::date <= (_periodstructure.enddate + dataset.timelydays) 
+                        AND  completedatasetregistration.sourceid IN (
+                                   SELECT datasetsource.sourceid
+		                   FROM datasetsource
+		                   INNER JOIN organisationunit inner_orgunit_expected
+		                  ON inner_orgunit_expected.organisationunitid=datasetsource.sourceid
+		                   INNER JOIN dataset
+		                  ON dataset.datasetid=datasetsource.datasetid
+		                  WHERE inner_orgunit_expected.path ilike '%'||outer_orgunit.uid||'%'
+			          AND dataset.uid='${datasetId}'
+                             )
+	) as ontime,
+	completed_by_and_date.storedby,
+	completed_by_and_date.enddate,
+	date(completed_by_and_date.submitteddate) as submitteddate
+
+FROM organisationunit outer_orgunit
+INNER JOIN _orgunitstructure using(organisationunitid)
+LEFT JOIN organisationunit as parent on outer_orgunit.parentid=parent.organisationunitid
+LEFT JOIN
+	(
+		SELECT completedatasetregistration.sourceid,
+		completedatasetregistration.storedby storedby,
+		completedatasetregistration.date submitteddate,_periodstructure.enddate
+		FROM completedatasetregistration
+		INNER JOIN organisationunit inner_orgunit_completed_by
+		ON inner_orgunit_completed_by.organisationunitid=completedatasetregistration.sourceid
+		INNER JOIN dataset
+		ON dataset.datasetid=completedatasetregistration.datasetid
+		INNER JOIN _periodstructure
+		ON _periodstructure.periodid=completedatasetregistration.periodid
+		WHERE dataset.uid='${datasetId}'
+			AND _periodstructure.iso='${period}'
+	) as completed_by_and_date ON completed_by_and_date.sourceid=outer_orgunit.organisationunitid
+WHERE (outer_orgunit.path ilike '%${orgUnitId}%'
+	and outer_orgunit.hierarchylevel='${orgUnitChildrenLevel}')
+        or outer_orgunit.uid='${orgUnitId}'
+ORDER BY outer_orgunit.hierarchylevel desc,  grandparentname asc, parent.name asc, outer_orgunit.name asc

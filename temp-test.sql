@@ -332,7 +332,7 @@ inner join _periodstructure on _periodstructure.periodid = datavalue.periodid
 inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
 inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
 inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid in(select dataelementid from dataelement where uid in('aDBdmQAABCC','ATqlMZypG0h','Aufg85b0HV3','awbB2k6c4dy','AYf5GkcQsmY','AyH8C2gvB5E','b0l3x8dmBtI','B9q04d4HYUi','BaV5E58U7Xm','BavfH1EX0eV','Bcy0nyOs0l2','Bd7hJVyjOKl','BfvvJ4rSAVf','bhifJusxiKx','bJqHs8SMglY','bMqo3gXzcw7','bOivZpsDaWp','BOlepbvjZSr','bS3zcjh6lFj','bS6WjHzMLDG','BUotpFFSkPQ','BV9x9mZI9AX','bXhMCyRvSPt','c005UxFtJ7p','C0rY5CYwGfo','c5T3R6QjgQG','C7ZjQl0Hh0o','cBJdSWgNoWD','Ccza2fiSCJZ','CE2CxlQh8vx','ce7ATPhE8Iv','cfl4mkxuLhd','CpSomQpOLkU','cvXtRow4aPz','CWXG9lBSI7Y','czV0Bdb4OMs','D34hFrwiUpq','DE53jCGUTme','DEHUXzpw90t','DickWO4DwCH','DjxrS2a3lfs','DoUU3CT1A07','DPLR0aQemYC','DQ8S8oZCz1O','DUlS90FQGNh','dvwAlTIl4gC','DWWNT5pcrWf','e46BBN2LHfp','EdaxsmnoohA','EEeh0pyQISB','egmmeobrQXV','EGXnlhg55mS','eLo4RXcQIi5','ENPBKqXUs0e','eoZtkUbfrmF','epPM7fO8CnH','Es3Tl7QBsah','eTOV59Rcv4F','eVaCxZYmej4','f096Uub9EvE','f4Woa8xSfs5','fC9eHFeDvRG','foIT9ImHcrf','frIrwyff1Go','fVzXb5qPrCp','FZG8H7NAwJ4','gaaV139sE6x','GDd0U2qgYpn','GGpsoh0DX6T','GKtYtPYBg9p','govkT8UYmsA','GpHn91aoEIN','gq90zkgvcg3','gRhW1h7t1pC','GRz0gNpORHZ','gTJBoztW66Z','GWFza9xVa3F','H2R0UdSYRPn','H8pprB9HXYF','hfZEdu3747h','hGY0CnSS9at','hI7erACK9lx','hjLcTJkb2v0','HlyRR1YbsL0','Hn4HdgfPPss','hpAA82LRAte','hTce3dWh9P7','HWZmyu3j4NX','I3RhiDXDEN2','IcU59e21drO','IDKxYQBGMdd','IEMyGwhBTXd','IFxhP0O4k0W','IGbCo0DIFIa','iI43Bmz4lZu','IIZ21DIqy0J','IKy5L8eGI0g','iP9wSaCAZl5','iqt8sB5fP0d','ItgPHCQ1hm6','IuEbVPEGwcN','iWEg1oWWtYx','iWk2izQWxyb','j8oPXDgmOXz','jbZa8J1H2ET','jmiebz1jQDn','JUqoKP2D7vk','Jv5yvUWcOAn','JXJ6K85BwHb','k1oUKgZdyT5','k4euXQXCIwJ','KAiGnZ0qtWd','kksp2roOMCj','kLI4iGDbN3p','kmpnqbSQLBl','Kpa6sheYah0','kSb2DwIAq9A','KsjpX2i1kOJ','Kt3DuTIieoT','KTXcMFWnbrP','KU1FsxbyE9Z','l5RLq10kd5K','LAHplQxtGSP','lcf03qF7UU3','LD4thW4OmXi','linry41rG3v','Lnf095vgahq','lokIbhypbyR','LpSJNv1zMTi','LznB81FWmWm','m1PpRCnZF4l','mbMw23u6zB3','MBWA8jDpuQO','MF5c1sSclKq','mlfh4fgiFhd','MOoQ280yfAP','MUy8R9WmeST','MXYoYFrLHj7','MxzW4N7GvCx','n5gO4gaIVdR','n62iMxfXPty','Nd47QWL1bhQ','NDUUp45yw9g','nEVETOImwlv','newpmtct042','nGed5u8o6gv','NkPkTgPIf5j','NlXYR3IJWCl','NSYWPEpZBuY','nUInmdAMy9t','nvsyLh5KGGu','NwzMLHAFMSC','Ny6pDv4SxrC','ObvdgLG6Rs8','ofcxyuoTp7c','oI7XZUpAcs6','OkEB2a7MKKz','OkyCfGRhsu0','OQpasUg1Tse','OSgKXpAp7Ip','OX5MJtwnEWY','OZ5YGaP6uwa','P3fFpAt1ymr','PCgQhgC8b3i','pD5AGDT8w9h','PejOKtvw5UW','PHN05p61ByJ','PKK90ZfFx2x','PmSZNZHac3t','pqpVKzE951Y','pVTitSjQ3oL','Q2fFmlGkxRN','q3ELeLciuTh','Q7taI8IlcFa','q8evppqXcvI','qfiHWApDYN4','qND1CpK3cO5','QPCEJmazWgv','qwFz1atKnbC','QY2val5hffZ','RaDWHS6x5aX','rAXlXCjOLcp','rB0DvqiPEVA','RJbnIiS8WVo','rjDxrcFIdgN','rklETIV29RG','RTplHDAOVQQ','RvLskJI6lJE','rWSyEfKWMLn','RyNkn76uTJo','RYzjUSOvbFL','s0mcf9xRpFn','s3XgvK2osoQ','S8FzjhBtEPJ','sBl5QAJEqio','SgeSIiqTN2l','sGY3eyJSxVp','SjNEefHqcz4','snAJ4ADu50F','Svz65UuG6dd','SZJ9iGsglqE','SzvgVKO1p8y','T4KvNZ5gAYI','TafY6G2w7hF','tDDF8JJyVap','tIs7rshvixe','tM1ecc8qcsJ','TMBP4HvViHB','TMXGiqmTZ3M','TntmCu0S3SO','totaZnTeUuK','toWFQOyPa15','tPK3QbHeaOS','TTVbKsy0ujj','tvscIxUNNpl','U1KbGaXmjgY','U50UeP68wpD','uA7nNtZE8bv','UCKrT4buBRQ','UDNIfd3mhin','uH8renKbxVS','ulM6a7dZoXM','V3aIXr7ziS9','v6sdLtxvY1K','V7LvxJUIdhR','vav3peUGYbC','vG53aOxAqLe','vKdJGP5FCOi','VnuhMFIlEyK','VPH0M4oc6bs','VSXdXdsSUd3','vYXCiIEJTwU','W0P7aEA3BrK','WAdaCligbNP','WEgRYalIG2c','Wh7OAyeCy0v','wNYeVWYR054','WWeqGGpUjY5','wy1Y4mixjFu','WzdnDeY1Jeq','X0TXADJv7GA','X3pjg8AMk4S','x5cswY9qs7m','X7Eirp6NPtW','X9fBUnQiiQE','xMJkfcHAvJL','xmpGYpXo68t','xVbmMwUk5ug','y1nw8IpRVtF','Y6cNfApg9Kf','yAPwF74EoEe','ycct6V6ksyU','yDg6ZxE0NLg','ykDWUlQzexW','ykShMtNgDB1','yKypqIROIO9','YPYFiirNajc','yqA1CfsfBHQ','ywZy8KscwP9','ZbmHzUkeJbQ','zfhmMA4HeJn','zOhZ2g9cs9R','zqaHIXl6j7c','zUVxutsJ6eR','ZXMe66Tl0Lo')) and datavalue.periodid in(select periodid from period where startdate between '2021-01-01' and '2021-12-31')) to '/tmp/nhs-all.csv' with csv header;
+where datavalue.dataelementid in(select dataelementid from dataelement where uid in('axFPBjVeZDZ','bQm0910XkCg','DLUIChaVy5l','Dmg9srebAFx','FSWzIwR4DAz','Gkssgjdhk9x','K0SyFJH0hs6','K2xse8e7j4G','keJFODvt17l','lXtuWOFZp2W','M8aZ1EEj5b9','Psv1NJPkeEh','RId7UWznBFg','rmJJbyGmb2F','S78PmvGuqjw','Sr44kuHjnWd','U9IzoqwfLnT','UvIDJ0INo4Z','vMBIrgx3k74','XJTb77yzd0M','xOrlRzyu7PH','xTeG2Ebb9QT','ZQYFpy8CmdI','ZYl5cdiaIOE','PGnfMIPDUGx')) and datavalue.periodid in(select periodid from period where startdate between '2016-01-01' and '2022-12-31')) to '/tmp/nhs-all.csv' with csv header;
 
 
 -- COPY datavalues from dataElement 
@@ -355,7 +355,7 @@ inner join _periodstructure on _periodstructure.periodid = datavalue.periodid
 inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
 inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
 inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid in(select dataelementid from dataelement where uid in('ipUzQbURGb6','YuNcvA4pciq','eb3jA9Aaa3o','dMvX2C5zE73','dM99TQPUSas','LznB81FWmWm','ruJUrkO4KYq','n54na07l1QX','F4YyZrBCAmB','S9NRLf1s8s3','rbfQX07YePY','mQAMDtF4Jy2','grkhy0SX198','x287d68AXYE','BSUDq9VdJZu','GlUnRRZefsm','qHhWtQW9cgE','GY8GMoMf6XS','LXUTRiAUz8E','hnVAElg9NUK','e2PSlslCWj7','yXgi3eez0RY','oMzMOeaYVtg','UznOyEZZTMH','cpQP3e46z5I','YEPuYfVdM74','H747hAuxODa','PucOlNW8GwB','t88oYi9RhzS','tOJddPimdwn','qG5ykPI4CeR','iWEg1oWWtYx','LKLkYo6I0Ho','aEYe09PwgIz','wTxYKNyTYoQ','yxsmoycfB4g','k84oCUKrqF9','f21Gs8KiiO1','LLWeEXqN0sP','BavfH1EX0eV','rmQlrw86ViK','oRK6lumuFxJ','L2QpntfklTw','xB9bhwmBXKh','GvSsNOfITa2','SoDVHRsVXaG','yuzWxj4N3yO','gjWwcLELdEO','o4eiR3GkzHv','QygZa2G6IFz','eXR1ZnLHVkS','VWCgGc8O2OZ','Nykcf8mlGTc','lGSIti8j3Kk','CcqeSB4Q36V','L32w2TYY0yF','wKzzvmQJb0Z','Enrfop8e1Ym','DRSd275Miyq','buXhgvWQGmQ','vVCjKt3ZUxY','Q6ykv0lLd1j','KI4LGAVPMbW','czDqXv6zFo8','ul4FEEZDQhS','WMNoa7dAYfp','jQQHZwjghqa','b0l3x8dmBtI','DickWO4DwCH','wgUK8uIF9Mz','eeFhPQ3VVW4','dpZQN93VL5X','x6naXiXokby','cqVY4lusFha','mRNJN164ofE','x08Aoxb6YvM','r2IHLT6XF0A','FXmHTOobWWa','d2DobClMCFD','eNdlixwXLgU','gcONnCPOSUx','LdyQW0gerBJ','X7Eirp6NPtW','RGvvSbp8LcE','Bv3q6FhupyJ','OLxyNC3zM93','aKvSOFMkGhy','qW7nFLpxcRc','Ki8hNP9IzT0','idsQ3rxaArP','YAEvFEo4RbB','g0Nb6PglK2l','CpSomQpOLkU','NPn4eFiTlfJ','fPsYMwVmBEU','PjNIzjN8k2i','CyDU323EHbd','sSymaIgbYMk','XsJ2LwL59Ts','ZiK2u39Xsi6','KjZXn9GDGgF','ELqE7MJRNIQ','CxCTnT6fKcn','C7ZjQl0Hh0o','n6MBbUgdKtx','SUD4b5JoRhu','j2d2oaxJeou','ysh4yaUKi1J','lMLWmChDpAe','Sp6R9LzgmnV','THwijFSCxNz','CRmrWQz7cWU','GR1IKuZyIpS','B2eyKOHwhID','V5lIuKUZSbD','ng6EVnhYtqh','eD59Nekc1lr','QFpdg9yl4f5','N8Gc8meGUQ3','JgtfxTM12b1','mbMw23u6zB3','JFCvcU7s8Ej','VESoEuZTrmM','RZRr7fd2Qs5','bCHLti5iUr4','kLxXeXuDzJz','k4AlztI82au','OUIbDbfPuC9','nUnO45pIpG0','JXxrQqkk1hB','ZxGXBjt63EX','lD8XL5pwXsj','pA6tmIlFsRi','vXzWNn0OynW','DE53jCGUTme','TOJyk9QBnyD','ksZFoGqvxqh','NXXdvsgbtXy','oRBwflVplGc','aDBdmQAABCC','KIDGfkiQjv2','EGXnlhg55mS','WqccjpdEzcS','Msp8JK8Sivh','OTD7OhEe7El','xHuh5UbhzjL','tIvq4JHEflo','lmrr7l0lQem','n5gO4gaIVdR','myRhKXcmBZG','izzWsayr71w','BKDxLIkHnIn','DHzSHmXDn0a','Zh8fItne0bY','sK2N6qjUf0B','P2JTF97hJUY','RTplHDAOVQQ','w8BTccRYiEF','OFISrKCOUFN','WwqgkgdJM3K')) and datavalue.periodid in(select periodid from period where startdate between '1967-01-01' and '2021-12-31')) to '/tmp/nhs-all-manual.csv' with csv header;
+where datavalue.dataelementid in(select dataelementid from dataelement where uid in('aoYQkYyPC7g','B2eyKOHwhID','B8S9G8wGYqc','BdUClwBqB8C','Bv3q6FhupyJ','caiWY5cspj2','COD1cBzHFfQ','cpQP3e46z5I','cqVY4lusFha','CxCTnT6fKcn','czDqXv6zFo8','d50q3OURYDL','DEXrraRgTvS','Df4vS8Fu2PY','dpZQN93VL5X','DRSd275Miyq','eb3jA9Aaa3o','eD59Nekc1lr','Eh8xwI7ghK6','El21tCkmQRk','eNdlixwXLgU','f21Gs8KiiO1','fPsYMwVmBEU','gjWwcLELdEO','GlUnRRZefsm','grkhy0SX198','GY8GMoMf6XS','H747hAuxODa','hnVAElg9NUK','ipUzQbURGb6','JFCvcU7s8Ej','JXxrQqkk1hB','k4AlztI82au','K8JzjwEa0Uz','KI4LGAVPMbW','KjZXn9GDGgF','ksZFoGqvxqh','la6qTfaqfQ7','LdyQW0gerBJ','lGSIti8j3Kk','LKLkYo6I0Ho','llqv48gaqHs','lmrr7l0lQem','m1FmGOtkvzE','mRNJN164ofE','Msp8JK8Sivh','myRhKXcmBZG','n54na07l1QX','nUnO45pIpG0','o80GSjTZbfl','oRBwflVplGc','oRK6lumuFxJ','pA6tmIlFsRi','QFpdg9yl4f5','qG5ykPI4CeR','qHhWtQW9cgE','QygZa2G6IFz','qzHtSoD3ymu','r2IHLT6XF0A','rbfQX07YePY','RGvvSbp8LcE','rmQlrw86ViK','rWJ2wzsxz4S','RZRr7fd2Qs5','sK2N6qjUf0B','SoDVHRsVXaG','Sp6R9LzgmnV','sSymaIgbYMk','SVow9wHNjAW','THwijFSCxNz','TOVig1SH5BE','tOw4k9BxHXS','U64mBtEnEBN','ul4FEEZDQhS','VESoEuZTrmM','w8BTccRYiEF','wgUK8uIF9Mz','wKzzvmQJb0Z','WqccjpdEzcS','wTxYKNyTYoQ','WwqgkgdJM3K','x08Aoxb6YvM','X3XasjeiMZA','x6naXiXokby','xHuh5UbhzjL','YaMAeaKHxeB','YEPuYfVdM74','yn0dcRNO6uQ','ysh4yaUKi1J','YuNcvA4pciq','yuzWxj4N3yO','yz3kGsLCHFP','Zh8fItne0bY','ZiK2u39Xsi6')) and datavalue.periodid in(select periodid from period where startdate between '1967-01-01' and '2021-12-31')) to '/tmp/nhs-all-manual.csv' with csv header;
 
 
 -- COPY datavalues from dataElement 
@@ -363,7 +363,7 @@ where datavalue.dataelementid in(select dataelementid from dataelement where uid
 CREATE TABLE tempdatamigration AS
 select *
 from datavalue
-where datavalue.dataelementid in(select dataelementid from dataelement where uid in('aDBdmQAABCC','ATqlMZypG0h','Aufg85b0HV3')) and datavalue.periodid in(select periodid from period where startdate between '2017-01-01' and '2021-12-31');
+where datavalue.dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid in('NDcgQeGaJC9'))) and datavalue.periodid in(select periodid from period where startdate between '2022-05-16' and '2023-01-29');
 
 
 CREATE TABLE tempdatamigration AS
@@ -376,6 +376,144 @@ insert into datavalue (select * from tempdatamigration) ON CONFLICT (dataelement
 
 
 
-delete from userrolemembers cascade where userid in(select userid from users cascade where username not in('username'));
-delete from previouspasswords cascade where userid in(select userid from users cascade where username not in('username'));
-delete from users cascade where username not in('username');
+delete from userrolemembers cascade where userid in(select userinfoid from userinfo cascade where username ilike '%ffp_%');
+delete from previouspasswords cascade where userid in(select userinfoid from userinfo cascade where username ilike '%ffp_%');
+delete from userdatavieworgunits cascade where userinfoid in(select userinfoid from userinfo cascade where username ilike '%ffp_%');
+delete from usergroupmembers cascade where userid in(select userinfoid from userinfo cascade where username ilike '%ffp_%');
+delete from usermembership cascade where userinfoid in(select userinfoid from userinfo cascade where username ilike '%ffp_%');
+delete from userinfo cascade where username ilike '%ffp_%';
+
+
+= UPDATE userdatavieworgunits SET organisationunitid = (SELECT organisationunitid FROM usermembership WHERE userinfoid IN(SELECT userinfoid FROM userinfo WHERE uid='')) AND userinfoid = (SELECT userinfoid FROM userinfo WHERE uid=''));
+="UPDATE userdatavieworgunits SET organisationunitid = (SELECT organisationunitid FROM usermembership WHERE userinfoid IN(SELECT userinfoid FROM userinfo WHERE uid='"&A2&"')) AND userinfoid = (SELECT userinfoid FROM userinfo WHERE uid='"&A2&"'));"
+
+copy(
+  select userid from users
+  ) to '/tmp/usersid.csv' with csv header;
+
+="INSERT INTO userrolemembers VALUES("&A2&", 522566101);"
+
+
+
+
+
+
+
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program)) and organisationunitid in(select organisationunitid from organisationunit));
+delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program)) and organisationunitid in(select organisationunitid from organisationunit));
+
+
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from programinstance where programid in(select programid from program));
+delete from programmessage_phonenumbers where programmessagephonenumberid in(select id from programmessage where programstageinstanceid in(select programstageinstanceid from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program ))));
+delete from programmessage_deliverychannels where programmessagedeliverychannelsid in(select id from programmessage where programstageinstanceid in(select programstageinstanceid from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program ))));
+delete from programmessage_emailaddresses where programmessageemailaddressid in(select id from programmessage where programstageinstanceid in(select programstageinstanceid from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program ))));
+delete from programmessage where programstageinstanceid in(select programstageinstanceid from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program )));
+
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program )));
+delete from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program ));
+delete from programinstance where programid in(select programid from program );
+delete from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from programinstance where programid in(select programid from program ));
+
+
+
+
+
+delete from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program)) and organisationunitid in(select organisationunitid from organisationunit);
+-- delete organisationunitid on programstageinstance table
+delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit);
+-- delete trackedentitydatavalue, trackedentitydatavalueaudit with dependency to organisationunits to be deleted
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit));
+delete from trackedentityattributevalue;
+-- delete organisationunitid on trackedentityinstance table
+delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance);
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance);
+delete from relationship where relationshipid in(select relationshipid from relationshipitem where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance));
+delete from relationshipitem where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance);
+truncate relationship cascade;
+delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit);
+delete from programinstance where organisationunitid in(select organisationunitid from organisationunit);
+
+
+
+
+
+select user0_.userinfoid as userinfo1_231_, user0_.uid as uid2_231_, user0_.code as code3_231_, user0_.lastUpdated as lastupda4_231_, user0_.created as created5_231_, user0_.surname as surname6_231_, user0_.firstName as firstnam7_231_, user0_.email as email8_231_, user0_.phoneNumber as phonenum9_231_, user0_.jobTitle as jobtitl10_231_, user0_.introduction as introdu11_231_, user0_.gender as gender12_231_, user0_.birthday as birthda13_231_, user0_.nationality as nationa14_231_, user0_.employer as employe15_231_, user0_.education as educati16_231_, user0_.interests as interes17_231_, user0_.languages as languag18_231_, user0_.welcomeMessage as welcome19_231_, user0_.lastCheckedInterpretations as lastche20_231_, user0_.whatsApp as whatsap21_231_, user0_.skype as skype22_231_, user0_.facebookMessenger as faceboo23_231_, user0_.telegram as telegra24_231_, user0_.twitter as twitter25_231_, user0_.lastupdatedby as lastupd26_231_, user0_.avatar as avatar27_231_, user0_.dataviewmaxorgunitlevel as datavie28_231_, user0_.attributeValues as attribu29_231_, user0_.uuid as uuid30_231_, user0_.creatoruserid as creator31_231_, user0_.username as usernam32_231_, user0_.password as passwor33_231_, user0_.secret as secret34_231_, user0_.twoFA as twofa35_231_, user0_.externalauth as externa36_231_, user0_.openid as openid37_231_, user0_.ldapid as ldapid38_231_, user0_.passwordLastUpdated as passwor39_231_, user0_.lastLogin as lastlog40_231_, user0_.idToken as idtoken41_231_, user0_.restoreToken as restore42_231_, user0_.restoreExpiry as restore43_231_, user0_.selfRegistered as selfreg44_231_, user0_.invitation as invitat45_231_, user0_.disabled as disable46_231_, user0_.accountExpiry as account47_231_ from userinfo user0_ where user0_.username='ibrahimwickama' limit 1;
+
+select distinct 
+user0_.userinfoid as userinfo1_231_, 
+user0_.uid as uid2_231_, 
+user0_.code as code3_231_, 
+user0_.lastUpdated as lastupda4_231_, 
+user0_.created as created5_231_, 
+user0_.surname as surname6_231_, 
+user0_.firstName as firstnam7_231_, 
+user0_.email as email8_231_, 
+user0_.phoneNumber as phonenum9_231_, 
+user0_.jobTitle as jobtitl10_231_, 
+user0_.introduction as introdu11_231_, 
+user0_.gender as gender12_231_, 
+user0_.birthday as birthda13_231_, 
+user0_.nationality as nationa14_231_, 
+user0_.employer as employe15_231_, 
+user0_.education as educati16_231_, 
+user0_.interests as interes17_231_, 
+user0_.languages as languag18_231_, 
+user0_.welcomeMessage as welcome19_231_, 
+user0_.lastCheckedInterpretations as lastche20_231_, 
+user0_.whatsApp as whatsap21_231_, 
+user0_.skype as skype22_231_, 
+user0_.facebookMessenger as faceboo23_231_, 
+user0_.telegram as telegra24_231_, 
+user0_.twitter as twitter25_231_, 
+user0_.lastupdatedby as lastupd26_231_, 
+user0_.avatar as avatar27_231_, 
+user0_.dataviewmaxorgunitlevel as datavie28_231_, 
+user0_.attributeValues as attribu29_231_, 
+user0_.uuid as uuid30_231_, 
+user0_.creatoruserid as creator31_231_, 
+user0_.username as usernam32_231_, 
+user0_.password as passwor33_231_, 
+user0_.secret as secret34_231_, 
+user0_.twoFA as twofa35_231_, 
+user0_.externalauth as externa36_231_, 
+user0_.openid as openid37_231_, 
+user0_.ldapid as ldapid38_231_, 
+user0_.passwordLastUpdated as passwor39_231_, 
+user0_.lastLogin as lastlog40_231_, 
+user0_.idToken as idtoken41_231_, 
+user0_.restoreToken as restore42_231_, 
+user0_.restoreExpiry as restore43_231_, 
+user0_.selfRegistered as selfreg44_231_, 
+user0_.invitation as invitat45_231_, 
+user0_.disabled as disable46_231_, 
+user0_.accountExpiry as account47_231_ 
+from 
+userinfo user0_ 
+left outer join usergroupmembers groups1_ on user0_.userinfoid=groups1_.userid 
+left outer join usergroup usergroup2_ on groups1_.usergroupid=usergroup2_.usergroupid 
+order by user0_.surname, user0_.firstName
+
+
+
+trackedentityprogramowner
+delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where lastupdatedby in (select userinfoid from userinfo where username is null));
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where lastupdatedby in (select userinfoid from userinfo where username is null));
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where lastupdatedby in (select userinfoid from userinfo where username is null));
+delete from trackedentityinstance where lastupdatedby in (select userinfoid from userinfo where username is null);
+delete from userkeyjsonvalue where userid in (select userinfoid from userinfo where username is null);
+delete from userdatavieworgunits where userinfoid in (select userinfoid from userinfo where username is null);
+delete from usergroupmembers where userid in (select userinfoid from userinfo where username is null);
+delete from usermembership where userinfoid in (select userinfoid from userinfo where username is null);
+
+delete from messageconversation_usermessages where usermessageid in (select usermessageid from usermessage where userid in (select userinfoid from userinfo where username is null));
+delete from usermessage where userid in (select userinfoid from userinfo where username is null);
+delete from userteisearchorgunits where userinfoid in (select userinfoid from userinfo where username is null);
+delete from usersetting where userinfoid in (select userinfoid from userinfo where username is null);
+delete from dashboard_items where dashboardid in (select dashboardid from dashboard where userid in (select userinfoid from userinfo where username is null));
+delete from dashboard where userid in (select userinfoid from userinfo where username is null);
+delete from programruleaction where programruleid in (select programruleid from programrule where lastupdatedby in (select userinfoid from userinfo where username is null));
+delete from programrule where lastupdatedby in (select userinfoid from userinfo where username is null);
+delete from userinfo cascade where username is null;
+
+
+delete from datavalue where dataelementid in (select datalementid from dataelement where uid in('LdyQW0gerBJ','QFpdg9yl4f5','sSymaIgbYMk','Msp8JK8Sivh','H747hAuxODa','lmrr7l0lQem','yuzWxj4N3yO','fPsYMwVmBEU','KjZXn9GDGgF')) and attributeoptioncomboid=181744345;

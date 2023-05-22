@@ -1,0 +1,1 @@
+INSERT INTO optionvalue VALUES((select nextval('hibernate_sequence')),(select generate_uid()),'A98.3','Marburg virus disease',now()::timestamp,now()::timestamp,6,'','',null,11643,'[]','{}');
