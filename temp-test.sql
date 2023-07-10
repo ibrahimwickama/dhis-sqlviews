@@ -332,7 +332,7 @@ inner join _periodstructure on _periodstructure.periodid = datavalue.periodid
 inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
 inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
 inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
-where datavalue.dataelementid in(select dataelementid from dataelement where uid in('axFPBjVeZDZ','bQm0910XkCg','DLUIChaVy5l','Dmg9srebAFx','FSWzIwR4DAz','Gkssgjdhk9x','K0SyFJH0hs6','K2xse8e7j4G','keJFODvt17l','lXtuWOFZp2W','M8aZ1EEj5b9','Psv1NJPkeEh','RId7UWznBFg','rmJJbyGmb2F','S78PmvGuqjw','Sr44kuHjnWd','U9IzoqwfLnT','UvIDJ0INo4Z','vMBIrgx3k74','XJTb77yzd0M','xOrlRzyu7PH','xTeG2Ebb9QT','ZQYFpy8CmdI','ZYl5cdiaIOE','PGnfMIPDUGx')) and datavalue.periodid in(select periodid from period where startdate between '2016-01-01' and '2022-12-31')) to '/tmp/nhs-all.csv' with csv header;
+where datavalue.dataelementid in(select dataelementid from dataelement where uid in('vrcwJtd3k6w','FZFLx96PuPg','HH69xQIYNbb','vrcwJtd3k6w','FZFLx96PuPg','HH69xQIYNbb','vrcwJtd3k6w','FZFLx96PuPg','HH69xQIYNbb','vrcwJtd3k6w','FZFLx96PuPg','HH69xQIYNbb','vrcwJtd3k6w','FZFLx96PuPg','HH69xQIYNbb','vrcwJtd3k6w','FZFLx96PuPg','HH69xQIYNbb','ejk3TJzcsIi','tAb9rtpu6Ko','pJxl1RJZq2P','ScTHTr2f1Ak','rzjljXCYXyE','PzWdPYkrT9g','Psv1NJPkeEh','Psv1NJPkeEh','rmJJbyGmb2F','rmJJbyGmb2F','fbadEiqz58l','lzalYq3sdGa','EfGKIg1XlPg','PzWdPYkrT9g','kD1MEEBkLwQ','fHB7QtlrAOO','g94p8dPH9VI','yONugrAY12y','g94p8dPH9VI','Qx7B5IfMihM','jKOifY7A8Hi','xTeG2Ebb9QT','OyZ2wgobkoJ','jKOifY7A8Hi','Gkssgjdhk9x','U9IzoqwfLnT','FSWzIwR4DAz','xOrlRzyu7PH','VZoIGuHqKt3','mUiK57bE3Qe','jKOifY7A8Hi','DOGY1oxGl3K','jKOifY7A8Hi')) and datavalue.periodid in(select periodid from period where startdate between '2020-01-01' and '2022-12-31')) to '/tmp/nhs-all.csv' with csv header;
 
 
 -- COPY datavalues from dataElement 
@@ -517,3 +517,13 @@ delete from userinfo cascade where username is null;
 
 
 delete from datavalue where dataelementid in (select datalementid from dataelement where uid in('LdyQW0gerBJ','QFpdg9yl4f5','sSymaIgbYMk','Msp8JK8Sivh','H747hAuxODa','lmrr7l0lQem','yuzWxj4N3yO','fPsYMwVmBEU','KjZXn9GDGgF')) and attributeoptioncomboid=181744345;
+
+
+
+="UPDATE users SET password='"&C2&"' WHERE uid='"&A2&"';"
+
+="UPDATE users SET disabled=true WHERE uid='"&A4&"';"
+
+
+
+select * from completedatasetregistration where periodid=0000 and datasetid=17872 and sourceid=2435;

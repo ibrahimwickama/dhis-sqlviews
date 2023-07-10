@@ -1,38 +1,38 @@
 -- delete ogranisation units dataValues on all wisn dataSets
-delete from datavalueaudit where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from datavalueaudit where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 -- delete datavalue orgunits 
-delete from datavalue where sourceid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from datavalue where sourceid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete organisationunitid on datasetsource table
-delete from datasetsource where sourceid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from datasetsource where sourceid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete organisationunitid on completedatasetregistration table
-delete from completedatasetregistration where sourceid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from completedatasetregistration where sourceid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete organisationunitid on program_organisationunits table
-delete from program_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from program_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete organisationunitid on programstageinstance table
-delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete trackedentitydatavalue, trackedentitydatavalueaudit with dependency to organisationunits to be deleted
-delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc')));
-delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc')));
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc')));
+delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc')));
 --  delete organisationunitid on trackedentityinstance table
-delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete organisationunitid on categoryoption_organisationunit table
-delete from categoryoption_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from categoryoption_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  dele organisation units on groups
-delete from orgunitgroupmembers where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from userdatavieworgunits where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from usermembership where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from visualization_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from eventreport_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from userteisearchorgunits where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from programstageinstancecomments where programstageinstanceid in(select programstageinstanceid from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc')));
-delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc')));
-delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from programinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
-delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc')));
-delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc')));
-delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('h8Su2g85Whc'));
+delete from orgunitgroupmembers where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from userdatavieworgunits where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from usermembership where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from visualization_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from eventreport_organisationunits where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from userteisearchorgunits where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from programstageinstancecomments where programstageinstanceid in(select programstageinstanceid from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc')));
+delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc')));
+delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from programinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc')));
+delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc')));
+delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where uid in('L9BBuWbYZKc'));
 --  delete actual organisationunits
-delete from organisationunit where uid in('h8Su2g85Whc');
+delete from organisationunit where uid in('L9BBuWbYZKc');
 
 
 

@@ -14,3 +14,7 @@ SET zero_damaged_pages on;
 SET zero_damaged_pages=on;
 -- Then 
 VACUUM FULL table_name;
+
+
+
+ invalid page in block 1508 of relation base/128105336/129328207
