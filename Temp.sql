@@ -251,7 +251,9 @@ dhis=# select * from dataelement where dataelementid=2182804483;
 
 
 -- Upgrading to 37+
+-- truncate reporttable cascade;
 drop table reporttable cascade;
+truncate report cascade;
 ALTER TABLE smscodes ALTER COLUMN optionid TYPE integer;
 
 
@@ -401,3 +403,8 @@ WHERE (outer_orgunit.path ilike '%${orgUnitId}%'
 	and outer_orgunit.hierarchylevel='${orgUnitChildrenLevel}')
         or outer_orgunit.uid='${orgUnitId}'
 ORDER BY outer_orgunit.hierarchylevel desc,  grandparentname asc, parent.name asc, outer_orgunit.name asc
+
+
+
+
+INSERT INTO optionvalue VALUES((select nextval('hibernate_sequence')),(select generate_uid()),'Laboratory Manager 1',now()::timestamp,now()::timestamp,'Laboratory Manager 1',1067052476,9,'','',null,'[]','{}');

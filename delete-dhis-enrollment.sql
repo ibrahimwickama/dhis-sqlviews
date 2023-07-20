@@ -1,3 +1,3 @@
 -- delete enrollment 
-delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where uid in('vtjcm1qvjtE','m359Wbwhxo7','TSrW24iOZVW','cr92ZcZ2FIY','xC5WKxEayZ7','j60wPUnTnew','cPdZnxqRyTV','D6pYLpQw6YW','pnFZTODIIEg','e0285VSpNTc','grMqiXBEnm8','dBLwj0x53gB','gsZACzQAE6m','hq9viywXXpI','FQbqcUv2BzE','OLIMe1jQ3uw','pUh6P4p80K0','rS3Ukpv51wy','wcKdQ4FfN6o','Ubn90T1qZPa'));
-delete from programinstance where uid in('vtjcm1qvjtE','m359Wbwhxo7','TSrW24iOZVW','cr92ZcZ2FIY','xC5WKxEayZ7','j60wPUnTnew','cPdZnxqRyTV','D6pYLpQw6YW','pnFZTODIIEg','e0285VSpNTc','grMqiXBEnm8','dBLwj0x53gB','gsZACzQAE6m','hq9viywXXpI','FQbqcUv2BzE','OLIMe1jQ3uw','pUh6P4p80K0','rS3Ukpv51wy','wcKdQ4FfN6o','Ubn90T1qZPa');
+delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where uid in('HBMjr68ns2a'));
+delete from programinstance where uid in('HBMjr68ns2a');

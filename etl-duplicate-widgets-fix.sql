@@ -1,0 +1,2 @@
+-- this will fix to all users in the system having trouble setting widgets to show on tracker, based on my settings
+update usersetting set value=(select value from usersetting where userinfoid=183821 and name='keyTrackerDashboardLayout') where name='keyTrackerDashboardLayout';
