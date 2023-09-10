@@ -408,3 +408,86 @@ ORDER BY outer_orgunit.hierarchylevel desc,  grandparentname asc, parent.name as
 
 
 INSERT INTO optionvalue VALUES((select nextval('hibernate_sequence')),(select generate_uid()),'Laboratory Manager 1',now()::timestamp,now()::timestamp,'Laboratory Manager 1',1067052476,9,'','',null,'[]','{}');
+
+
+
+-- Replace the uid of the dataset to the real dataset Uid to extract data from
+copy(select dataelement.uid as dataelement,
+_periodstructure.iso as period,
+organisationunit.uid as orgunit,
+coc1.uid as categoryoptioncombouid ,
+coc2.uid as attributeoptioncombouid,
+datavalue.value as value,
+datavalue.storedby as storedby,
+date(datavalue.lastupdated) as lastupdated,
+datavalue.comment as comment,
+datavalue.followup as followup,
+datavalue.deleted as deleted
+from datavalue inner join dataelement using(dataelementid) 
+inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
+inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
+inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
+inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
+where datavalue.dataelementid 
+  in(select dataelementid 
+     from datasetelement 
+     where datasetid 
+       in(select datasetid 
+         from dataset where uid in('EANmPUhm7tU'))) 
+         and datavalue.periodid in(select periodid from period where startdate between '2023-01-01' and '2023-07-20')) to '/tmp/eidsrDataset2023.csv' with csv header; 
+
+
+
+copy(select 
+dataelement.uid as dataelement,
+_periodstructure.iso as period,
+organisationunit.uid as orgunit,
+coc1.uid as categoryoptioncombouid ,
+coc2.uid as attributeoptioncombouid,
+datavalue.value as value,
+datavalue.storedby as storedby,
+date(datavalue.lastupdated) as lastupdated,
+datavalue.comment as comment,
+datavalue.followup as followup,
+datavalue.deleted as deleted
+from datavalue 
+inner join dataelement using(dataelementid) 
+inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
+inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
+inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
+inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
+where datavalue.dataelementid in(select dataelementid from dataelement where uid in('btVM00WAlRO')) and datavalue.periodid in(select periodid from period where startdate between '2023-01-01' and '2023-08-07')) to '/tmp/eidsr2023.csv' with csv header;
+
+
+
+
+
+
+
+select organisationunitid,uid,name,hierarchylevel,closeddate from organisationunit where closeddate between '1970-01-01' and '1970-01-02';
+
+update organisationunit set closeddate='' where closeddate between '1970-01-01' and '1970-01-02';
+
+pg_restore -d your_database_name -t your_table_name -a path/to/your/sql_dump_file.sql
+
+pg_restore -h localhost -U dhismain -p 5432 --format plain -d dhis_temp -t datasetsource -f /mnt/old_data01/dhis/daily_backups/backup2023-08-03-daily/dhis_tz_main.sql
+psql -h localhost -U dhismain -p 5432 -d dhis_temp -t datasetsource /mnt/old_data01/dhis/daily_backups/backup2023-08-03-daily/dhis_tz_main.sql
+
+dhismain
+dhis987123
+
+pg_dump -h localhost -U dhismain -p 5432 --format plain --exclude-table-data="audit" --exclude-table-data="datavalueaudit" --exclude-table="_categoryoptioncomboname" --exclude-table="_categorystructure" --exclude-table="_dataelementgroupsetstructure" --exclude-table="_dataelementstructure" --exclude-table="_indicatorgroupsetstructure" --exclude-table="_organisationunitgroupsetstructure" --exclude-table="_orgunitstructure" --exclude-table="_periodstructure"  --exclude-table="aggregated*" --exclude-table="analytics*" --exclude-table="completeness_*" --verbose --file /tmp/port-test-db-backup.sql dhis_tz_portal;
+
+
+copy(
+select * from datasetsource where sourceid in(2183295994,238173,2183288797,2182854001,78140,2182664903,80038,79577,77767,75546,75340,77169,78207,77170,77207,78913,297007,77011,78544,291175,80396,79306,77053,76545,234974,77773,77007,75614,2183283639,296962,79290,2183769237,2183769239,80767,79765,237454,2183821612,79313,289204,77577,79320,75439,78452,299344,300177,77920,79268,80433,2183471282,2183471306,79771,78950,293420,2183870235,77430,2183471311,239134,81332,78871,79301,80369,75914,2182763586,78925,2183498299,75369,2183510337,2183510369,80434,2183502925,2183510384,2183503712,2183503055,77566,2183503761,79590,78178,80797,2183536099,291884,2182730948,76491,75785,77768,77442,81090,373115,76379,78568,77180,76518,2183561313,77473,2183580123,237450,2182754021,291408,77016,81210,77757,14876426,77663,77298,78419,78375,78179,77137,77549,80529,239750,77497,80295,80368,78091,80381,81206,79575,77761,79318,77752,77760,79319,75875,79324,77778,237406,40998947,283190,78295,80415,77405,76911,77135,78013,79309,77567,79317,80849,77759,78176,77571,80450,77771,77763,15520347,80791,80824,77769,76676,77924,77916,75642,76641,80285,76227,76156,78348,78379,77244,79305,76944,77006,76143,76689,77777,77780,77766,81138,78854,2182657338,2183634008,300998,296139,81204,76285,77009,78180,77171,2182657367,2182664560,79075,78368,75874,75643,239201,75871,80367,77774,80513,237294,79303,79551,79315,76400,78690,78581,77779,300791,77772,77776,78639,77134,76195,300794,79593,77575,77764,81430,79365)
+) to '/tmp/datasetsource.csv' with csv header;
+
+
+
+SELECT (categorycombo.*)::text, count(*)
+FROM categorycombo
+GROUP BY categorycombo.*
+HAVING count(*) > 1
+
+select * from categorycombo where name='HCT';

@@ -66,8 +66,8 @@ LANGUAGE plpgsql;
 
 
 -- now how to use the functions 
-select transferOUdatavalues(4469116,5905852);
-select transferOUtrackerdata(4469116,5905852);
+select transferOUdatavalues(5740,184);
+select transferOUtrackerdata(5740,184);
 
 
 

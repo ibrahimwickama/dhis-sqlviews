@@ -392,6 +392,7 @@ copy(
   ) to '/tmp/usersid.csv' with csv header;
 
 ="INSERT INTO userrolemembers VALUES("&A2&", 522566101);"
+="INSERT INTO datasetsource VALUES("&A2&", "&B2&");"
 
 
 
@@ -418,7 +419,6 @@ delete from trackedentityinstance where trackedentityinstanceid in(select tracke
 
 
 
-delete from programstageinstance where programstageid in(select programstageid from programstage where programid in(select programid from program)) and organisationunitid in(select organisationunitid from organisationunit);
 -- delete organisationunitid on programstageinstance table
 delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit);
 -- delete trackedentitydatavalue, trackedentitydatavalueaudit with dependency to organisationunits to be deleted
@@ -527,3 +527,8 @@ delete from datavalue where dataelementid in (select datalementid from dataeleme
 
 
 select * from completedatasetregistration where periodid=0000 and datasetid=17872 and sourceid=2435;
+
+
+
+
+
