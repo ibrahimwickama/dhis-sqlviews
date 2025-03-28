@@ -79,38 +79,43 @@ delete from datavalue where sourceid=(select organisationunitid from organisatio
 delete from organisationunit where uid in('ouUidToRemove');
 
 
-delete from datavalueaudit where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from datavalue where sourceid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from datasetsource where sourceid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from completedatasetregistration where sourceid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from program_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%'));
-delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%'));
-delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from categoryoption_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from usermembership where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from orgunitgroupmembers where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from visualization_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from organisationunit where path ilike '%PHGm198Hcil%';
+delete from datavalueaudit where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from datavalue where sourceid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC'));
+delete from datasetsource where sourceid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from completedatasetregistration where sourceid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from program_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from programmessage where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC')); 
+delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC'));
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC'));
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC'));
+delete from programinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from trackedentityprogramowner where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from categoryoption_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from usermembership where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from orgunitgroupmembers where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from visualization_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC';
 
 
 
 
 delete from datavalueaudit where organisationunitid in(select organisationunitid from organisationunit where uid in('smDMxTGfDrO',));
-delete from datavalue where sourceid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from datasetsource where sourceid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from completedatasetregistration where sourceid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from program_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%'));
-delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%'));
-delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from categoryoption_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from usermembership where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from orgunitgroupmembers where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from visualization_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%PHGm198Hcil%');
-delete from organisationunit where path ilike '%PHGm198Hcil%';
+delete from datavalue where sourceid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from datasetsource where sourceid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from completedatasetregistration where sourceid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from program_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC'));
+delete from trackedentitydatavalue where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC'));
+delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from categoryoption_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from usermembership where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from orgunitgroupmembers where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from visualization_organisationunits where organisationunitid in(select organisationunitid from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC');
+delete from organisationunit where path ilike '%gMtogcNbuyC%' or uid='gMtogcNbuyC';
 
 
 
@@ -529,6 +534,26 @@ delete from datavalue where dataelementid in (select datalementid from dataeleme
 select * from completedatasetregistration where periodid=0000 and datasetid=17872 and sourceid=2435;
 
 
+DELETE FROM datavalue WHERE dataelementid IN (SELECT dataelementid FROM dataelement WHERE uid in('KU1FsxbyE9Z','CE2CxlQh8vx','hfZEdu3747h','nUInmdAMy9t')) AND periodid in(2183563266,2183563338,2183563345,2183563349,2183563352,2183563726,2183563747,2183563901,2183564119,2183564556,2183567036,2183578389);
+SELECT count(*) FROM datavalue WHERE dataelementid IN (SELECT dataelementid FROM dataelement WHERE uid in('KU1FsxbyE9Z','CE2CxlQh8vx','hfZEdu3747h','nUInmdAMy9t')) AND created  BETWEEN '2023-01-01' AND '2023-12-31';
+SELECT count(*) FROM datavalue WHERE dataelementid IN (SELECT dataelementid FROM dataelement WHERE uid in('KU1FsxbyE9Z','CE2CxlQh8vx','hfZEdu3747h','nUInmdAMy9t')) AND periodid in(2183563266,2183563338,2183563345,2183563349,2183563352,2183563726,2183563747,2183563901,2183564119,2183564556,2183567036,2183578389);
+SELECT count(*) FROM analytics_2023 WHERE dx IN('KU1FsxbyE9Z','CE2CxlQh8vx','hfZEdu3747h','nUInmdAMy9t') and year='2023';
+ AND periodid in(2183563266,2183563338,2183563345,2183563349,2183563352,2183563726,2183563747,2183563901,2183564119,2183564556,2183567036,2183578389);
 
+select
 
-
+  periodid  | periodtypeid | startdate  |  enddate   
+------------+--------------+------------+------------
+ 2183563266 |            3 | 2023-10-01 | 2023-10-31
+ 2183563338 |            3 | 2023-09-01 | 2023-09-30
+ 2183563345 |            3 | 2023-08-01 | 2023-08-31
+ 2183563349 |            3 | 2023-11-01 | 2023-11-30
+ 2183563352 |            3 | 2023-07-01 | 2023-07-31
+ 2183563726 |            3 | 2023-01-01 | 2023-01-31
+ 2183563747 |            3 | 2023-05-01 | 2023-05-31
+ 2183563901 |            3 | 2023-12-01 | 2023-12-31
+ 2183564119 |            3 | 2023-02-01 | 2023-02-28
+ 2183564556 |            3 | 2023-03-01 | 2023-03-31
+ 2183567036 |            3 | 2023-04-01 | 2023-04-30
+ 2183578389 |            3 | 2023-06-01 | 2023-06-30
+ 

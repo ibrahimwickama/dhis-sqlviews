@@ -257,6 +257,13 @@ truncate report cascade;
 ALTER TABLE smscodes ALTER COLUMN optionid TYPE integer;
 
 
+
+-- Upgrading HMIS from 36+ to 40
+drop table reporttable cascade;
+-- Then restarted the instance, it failed then restarted again and it took some time to update but it worked
+
+
+
 select datasetid,uid,name,expirydays from dataset where name ilike '%NACP%';
 update dataset set expirydays=160 where name not ilike '%NACP%';
 
@@ -434,7 +441,7 @@ where datavalue.dataelementid
      where datasetid 
        in(select datasetid 
          from dataset where uid in('EANmPUhm7tU'))) 
-         and datavalue.periodid in(select periodid from period where startdate between '2023-01-01' and '2023-07-20')) to '/tmp/eidsrDataset2023.csv' with csv header; 
+         and datavalue.periodid in(select periodid from period where startdate between '2023-01-01' and '2023-08-20')) to '/tmp/eidsrDataset2023.csv' with csv header; 
 
 
 
@@ -491,3 +498,477 @@ GROUP BY categorycombo.*
 HAVING count(*) > 1
 
 select * from categorycombo where name='HCT';
+
+
+copy(select * from completedatasetregistration ) to '/tmp/datasetcompleteness.csv' with csv header;
+
+copy(select cdr.datasetid,pe.periodid,pe.startdate,pe.enddate,ou.uid,ou.organisationunitid,cdr.date,cdr.storedby 
+from completedatasetregistration cdr
+inner join organisationunit ou on (ou.organisationunitid=cdr.sourceid)
+left join period pe on (pe.periodid=cdr.periodid)) to '/tmp/datasetcompleteness.csv' with csv header;
+
+
+INSERT INTO completedatasetregistration VALUES(1573,(select periodid from period where startdate='' and enddate=''),(select organisationunitid from organisationunit where uid=''),24,'date','storedby','lastupdatedby','lastupdated',true);
+
+
+="INSERT INTO completedatasetregistration VALUES(1573,(select periodid from period where startdate='"&TEXT(C2,"yyyy-mm-dd")&"' and enddate='"&TEXT(D2,"yyyy-mm-dd")&"'),(select organisationunitid from organisationunit where uid='"&E2&"'),24,'"&TEXT(G2,"yyyy-mm-dd h:mm:ss")&"','"&H2&"','"&H2&"',now()::timestamp,true);"
+="UPDATE completedatasetregistration SET storedby='"&H2&"' WHERE periodid in(select periodid from period where startdate='"&TEXT(C2,"yyyy-mm-dd")&"' and enddate='"&TEXT(D2,"yyyy-mm-dd")&"') and sourceid in(select organisationunitid from organisationunit where uid='"&E2&"') and datasetid=1573;"
+
+
+
+
+
+
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('m9UET1J7ilX'));
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid  in('m9UET1J7ilX'));
+delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('m9UET1J7ilX')));
+delete from programinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid  in('m9UET1J7ilX'));
+delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid in('m9UET1J7ilX')));
+delete from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where uid  in('m9UET1J7ilX'));
+
+
+
+-- delete program tracker data by programId
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where trackedentitytypeid in(select trackedentitytypeid from program where uid=''));
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where trackedentitytypeid in(select trackedentitytypeid from program where uid=''));
+delete from programstageinstance where programinstanceid in(select programinstanceid from programinstance where programid in(select programid from program where uid=''));
+delete from programinstance where programid in(select programid from program where uid='');
+delete from trackedentityprogramowner where programid in(select programid from program where uid='');
+delete from trackedentityinstance where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where trackedentitytypeid in(select trackedentitytypeid from program where uid=''));
+
+
+update program set sharing='{"owner": "Gg1EOlOvKRE", "users": {"FrROTHBszj5": {"id": "FrROTHBszj5", "access": "rwrw----"}}, "public": "rwrw----", "external": false, "userGroups": {"RJ1GMFVfzQ1": {"id": "RJ1GMFVfzQ1", "access": "rwrw----"}}}' where programid=522839043;
+
+
+
+
+COPY (SELECT 'INSERT INTO datavalue VALUES(' || dataelementid || ',' || periodid || ',' || sourceid || ',' || categoryoptioncomboid || ',' || value || ',null,now()::timestamp,null,false,' || attributeoptioncomboid || ',now()::timestamp,false);' from datavalue where created > '2022-01-01') TO '/tmp/hmis_data.sql';
+
+
+COPY (SELECT 'INSERT INTO datavalue VALUES(' || datasetid || ',' || periodid || ',' || sourceid || ',' || date || ',upgrade,' || attributeoptioncomboid || ',upgrade,'',now()::timestamp,null,false,' || attributeoptioncomboid || ',now()::timestamp,false);' from datavalue where created > '2022-01-01') TO '/tmp/hmis_data.sql';
+
+
+
+
+
+select datavalue0_.dataelementid as dataelem1_60_, datavalue0_.periodid as periodid2_60_, datavalue0_.sourceid as sourceid3_60_, datavalue0_.categoryoptioncomboid as category4_60_, datavalue0_.attributeoptioncomboid as attribut5_60_, datavalue0_.value as value6_60_, datavalue0_.storedby as storedby7_60_, datavalue0_.created as created8_60_, datavalue0_.lastupdated as lastupda9_60_, datavalue0_.comment as comment10_60_, datavalue0_.followup as followu11_60_, datavalue0_.deleted as deleted12_60_ from datavalue datavalue0_ inner join dataelement dataelemen1_ on datavalue0_.dataelementid=dataelemen1_.dataelementid inner join period period2_ on datavalue0_.periodid=period2_.periodid inner join organisationunit organisati3_ on datavalue0_.sourceid=organisati3_.organisationunitid inner join categoryoptioncombo categoryop4_ on datavalue0_.categoryoptioncomboid=categoryop4_.categoryoptioncomboid inner join categoryoptioncombo categoryop5_ on datavalue0_.attributeoptioncomboid=categoryop5_.categoryoptioncomboid 
+where (dataelemen1_.dataelementid in (2180985357,2180985325,2180985329,2180985373,2180985363,2180985326,2180985349,2180985370,2180985368,2180985359,2180985353,2180985323,2180985362,2180985340,2180985358,2180985344,2180985361,2180985356,2180985334,2180985350,2180985337,2180985331,2180985332,2180985343,2180985367,2180985335,2180985346,2180985327,2180985354,2180985348,2180985369,2180985336,2180985351,2180985341,2180985328,2180985338,2180985366,2180985345,2180985330,2180985365,2180985342,2180985322,2180985364,2180985347,2180985372,2180985355,2180985333,2180985371,2180985360,2180985352,2180985339,2180985324)) and (period2_.periodid in (2183563266)) and (organisati3_.organisationunitid in (75372)) and (categoryop5_.categoryoptioncomboid in (13)) and datavalue0_.deleted=false;
+
+
+
+
+
+-- create unique index on datavalue table
+CREATE UNIQUE INDEX datavalue_pkey ON datavalue (dataelementid, periodid, sourceid, categoryoptioncomboid, attributeoptioncomboid);
+
+
+
+(dataelementid, periodid, sourceid, categoryoptioncomboid, attributeoptioncomboid)=(82364, 2183563349, 2183828989, 82361, 13)
+
+select * from datavalue where dataelementid=82364 and periodid=2183563349  and sourceid=2183828989 and categoryoptioncomboid=82361 and attributeoptioncomboid=13;
+delete from datavalue where dataelementid=82427 and periodid=2183563349  and sourceid=1325605638 and categoryoptioncomboid=82358 and attributeoptioncomboid=13;
+
+delete from datavalue where created > '2023-12-01';
+CREATE UNIQUE INDEX datavalue_pkey ON datavalue (dataelementid, periodid, sourceid, categoryoptioncomboid, attributeoptioncomboid);
+
+datavalue_pkey
+
+
+-- delete organisationunitid on programstageinstance table
+delete from programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r');
+-- delete trackedentitydatavalue, trackedentitydatavalueaudit with dependency to organisationunits to be deleted
+delete from trackedentitydatavalueaudit where programstageinstanceid in(select programstageinstanceid from  programstageinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r'));
+delete from trackedentityattributevalue where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r'));
+-- delete organisationunitid on trackedentityinstance table
+delete from trackedentityprogramowner where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r'));
+delete from trackedentityattributevalueaudit where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r'));
+delete from relationship where relationshipid in(select relationshipid from relationshipitem where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r'))) cascade;
+delete from relationshipitem where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r')) cascade;
+-- truncate relationship cascade;
+delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r');
+delete from programinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%k8V8c7k7N6r%' or uid='k8V8c7k7N6r' or uid='k8V8c7k7N6r');
+
+
+-- on eTB missing patients on dataEntry while visible on across all stages
+INSERT INTO trackedentityprogramowner VALUES((select nextval('hibernate_sequence')),522043014,521914217,now()::timestamp,now()::timestamp,2788,'system');
+
+
+-- Update orgunits with lat and long from 
+="UPDATE organisationunit SET geometry=ST_SetSRID(ST_MakePoint("&H2&", "&G2&"), 4326) WHERE uid='"&B2&"';"
+
+
+
+-- eIDSR Zanzibar Sql Queries
+xqKqwYeEZLB |      1381 | IDSR_MoHZ Immediate Notification Disease (Tracker) | 2024-02-13 12:08:35.271
+Y1Arb55WBGM |    251097 | Immediate Disease Notification                     | 2024-03-01 11:48:16.499
+
+select tea.trackedentityattributeid,tea.code,tea.uid,tea.name 
+from program_attributes pa
+inner join trackedentityattribute tea on tea.trackedentityattributeid = pa.trackedentityattributeid
+where pa.programid=251097
+EXCEPT
+select tea.trackedentityattributeid,tea.code,tea.uid,tea.name 
+from program_attributes pa
+inner join trackedentityattribute tea on tea.trackedentityattributeid = pa.trackedentityattributeid
+where pa.programid=1381;
+
+
+
+SELECT 
+    pid
+    ,datname
+    ,usename
+    ,application_name
+    ,client_hostname
+    ,client_port
+    ,backend_start
+    ,query_start
+    ,query
+    ,state
+FROM pg_stat_activity
+WHERE state = 'active';
+
+SELECT 
+    pid
+    ,datname
+    ,usename
+    ,application_name
+    ,client_hostname
+    ,client_port
+    ,backend_start
+    ,query_start
+    ,query
+    ,state
+FROM pg_stat_activity
+WHERE state = 'idle' AND LENGTH(query) < 1;
+
+SELECT 
+    pid
+FROM pg_stat_activity
+WHERE state = 'idle' AND LENGTH(query) < 1;
+
+SELECT 
+    pid
+    ,datname
+    ,usename
+    ,query_start
+     ,query
+    ,state
+FROM pg_stat_activity
+WHERE state = 'idle' AND query LIKE '% %';
+
+SELECT 
+    pid
+    ,datname
+    ,usename
+    ,query_start
+     ,query
+    ,state
+FROM pg_stat_activity
+WHERE state = 'idle' AND pid NOT IN (SELECT pid FROM pg_stat_activity WHERE state = 'idle' AND query LIKE '% %' AND LENGTH(query) > 3);
+
+
+PERFORM pg_terminate_backend(103344);
+
+
+
+
+
+
+
+
+
+
+
+-- List old categoryoptioncombo IDS
+select categoryoptioncomboid,uid,name from categoryoptioncombo where uid in('oldUid1','oldUid1');
+
+-- List new categoryoptioncombo IDS
+select categoryoptioncomboid,uid,name from categoryoptioncombo where uid in('newUid1','newUid1');
+
+-- Note them down and arrange them manually for mapping something like this
+  old_categoryoptioncomboid  | new_categoryoptioncomboid | 
+-----------------------------+---------------------------+
+ 3984                        |                      8593 |
+ 9594                        |                      9284 |
+ 8492                        |                      8584 |
+ 9584                        |                      9532 |
+
+-- Then look for period id based on period startdates and enddates
+select periodid,startdate,enddate,daysno,monthly from _periodstructure where daysno >= 28 and monthly in('202309','202310','202311');
+  periodid  | startdate  |  enddate   | daysno | monthly 
+------------+------------+------------+--------+---------
+ 2183563266 | 2023-10-01 | 2023-10-31 |     31 | 202310
+ 2183563338 | 2023-09-01 | 2023-09-30 |     30 | 202309
+ 2183563349 | 2023-11-01 | 2023-11-30 |     30 | 202311
+
+-- Now create the queries based on catoptioncombo mapping results
+update datavalue set categoryoptioncomboid= new_categoryoptioncomboid where categoryoptioncomboid=old_categoryoptioncomboid and periodid in(2183563266,2183563338,2183563349);
+
+
+
+="UPDATE organisationunit SET code='"&F2&"' WHERE uid='"&E2&"';"
+
+DO $$
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN SELECT uid, code FROM organisationunit WHERE hierarchylevel=5 LOOP
+        BEGIN
+            -- Update the column to keep only the last 8 characters
+            UPDATE organisationunit
+            SET code = RIGHT(r.code, 8)
+            WHERE uid = r.uid;
+        EXCEPTION
+            WHEN OTHERS THEN
+                -- Skip the row and continue with the next iteration
+                RAISE NOTICE 'Skipping row with id % due to error: %', r.uid, SQLERRM;
+        END;
+    END LOOP;
+END $$;
+
+
+
+COPY (
+SELECT DISTINCT 
+    ps.username,
+    ps.firstname,
+    ps.middlename,
+    ps.surname,
+    ps.phonenumber,
+    ps.enabled,
+    ps.created,
+    ps.lastlogin,
+    -- ur.name,
+    ( SELECT replace(replace(replace((ARRAY( SELECT userrole.name
+                   FROM userrolemembers
+                     JOIN userrole ON userrole.id = userrolemembers."userroleId"
+                  WHERE userrolemembers."userId" = ps.id))::text, '{'::text, ''::text), '}'::text, ''::text), '"'::text, ''::text) AS replace) AS userroles
+FROM 
+    public.user ps
+LEFT JOIN 
+    userrolemembers urm ON urm."userId" = ps.id
+LEFT JOIN 
+    userrole ur ON ur.id = urm."userroleId"
+    ) TO '/tmp/hris_user.csv' with csv header;
+
+
+
+    20240805
+
+delete from datavalue where periodid=27108 and sourceid in(1199,3412);
+
+select organisationunitid from organisationunit where uid in('K2vzLZeTssW','sXvhJ1kCNq9');
+K2vzLZeTssW
+sXvhJ1kCNq9
+
+COPY (select uid,name,geometry from organisationunit where hierarchylevel=3) TO '/tmp/lga_geometry.csv' with csv header;
+
+="UPDATE organisationunit SET geometry='"&C2&"' WHERE uid='"&A2&"';"
+
+
+
+SELECT
+date(pi.enrollmentdate) as "case_date",
+date(psi.executiondate) as "traige_date",
+date(psi1.executiondate) as "verificaiton_date"
+FROM trackedentityinstance tei
+inner join programinstance pi on pi.trackedentityinstanceid = tei.trackedentityinstanceid
+-- Triage stage
+inner join programstageinstance psi on psi.programinstanceid = pi.programinstanceid and psi.programstageid=11348
+-- Verification stage
+inner join programstageinstance psi1 on psi1.programinstanceid = pi.programinstanceid and psi1.programstageid=11344
+left join te_attributevalue as "Disease Classification" on "Disease Classification".trackedentityinstanceid = tei.trackedentityinstanceid and "Disease Classification".trackedentityattributeid = 18212
+and pi.programid = 11354  AND pi.deleted is false;
+
+COPY (SELECT * FROM _orgunitstructure) TO '/tmp/orgunitstructure.csv' with csv header;
+
+
+="UPDATE userinfo SET username='"&E2&"' WHERE uis='"&A2&"';"
+
+
+-- Get period ids 
+select periodid,startdate,enddate,daysno,monthly from _periodstructure where daysno >= 28 and monthly in('202301','202302','202303','202304','202305','202306','202307','202308','202309','202310','202311','202312','202401','202402','202403','202404','202405','202406','202407','202408','202409','202410','202411','202412');
+
+-- Get dataElement ids 
+select dataelementid,uid from dataelement where uid in('KU1FsxbyE9Z','CE2CxlQh8vx','hfZEdu3747h','nUInmdAMy9t','dU2Te9w4kX3','FyMgk7gu6sM','veNyYfnryba','EedsGEZYgrJ','akJaRI9HXkw','SpATOGBWN4x','Wo3IAYaAaOw','tExuo3o7twa','KCqXueTAFab','PDUaZ1SG2Nx','oZ01LlJJUXb','ZMqXEOua0gm','K6IIFFTr9C2','BMmABnLo9wc','Wf281LtOA0f','oixPV2SYqgG');
+
+DELETE FROM datavalue WHERE 
+periodid IN(2183563266,2183563338,2183563345,2183563349,2183563352,2183563726,2183563747,2183563901,2183564119,2183564556,2183567036,2183578389,2183693778,2184317782,2184316474,2184316490,2184316502,2184316859,2184317023,2184317028,2184317786,2184317939,2184319066,2184331375) AND 
+dataelementid IN(1079138,1079145,1079139,1079150,1079152,1079153,1079155,1079154,1079144,1079148,1079149,1079143,1079141,1079147,1079142,1079140,1079137,1079146,1079151,1079136);
+
+
+
+usermembership
+userteisearchorgunits
+userdatavieworgunits
+
+userinfo
+username
+
+INSERT INTO usermembership VALUES((SELECT organisationunitid FROM organisationunit WHERE uid='j7EZnVuXl3C'),(SELECT userinfoid FROM userinfo WHERE username='ombeningulo'));
+="INSERT INTO usermembership VALUES((SELECT organisationunitid FROM organisationunit WHERE uid='"&B2&"'),(SELECT userinfoid FROM userinfo WHERE username='"&A2&"'));"
+="INSERT INTO userdatavieworgunits VALUES((SELECT userinfoid FROM userinfo WHERE username='"&A2&"'),(SELECT organisationunitid FROM organisationunit WHERE uid='"&C2&"'));"
+="INSERT INTO userteisearchorgunits VALUES((SELECT userinfoid FROM userinfo WHERE username='"&A2&"'),(SELECT organisationunitid FROM organisationunit WHERE uid='"&C2&"'));"
+
+delete from indicatorgroupmembers where indicatorid in(select indicatorid from indicator where DATE(created) ='2025-02-05');
+delete from indicator where DATE(created) ='2025-02-05';
+delete from dataelementgroupmembers where dataelementid in(select dataelementid from dataelement where DATE(created) ='2025-02-05');
+delete from datasetelement where dataelementid in(select dataelementid from dataelement where DATE(created) ='2025-02-05');
+delete from datavalue where dataelementid in(select dataelementid from dataelement where DATE(created) ='2025-02-05');
+delete from datavalueaudit where dataelementid in(select dataelementid from dataelement where DATE(created) ='2025-02-05');
+delete from dataelement where DATE(created) ='2025-02-05';
+
+
+delete from trackedentitydatavalueaudit where programstageinstanceid=6240567;
+delete from programstageinstance where programinstanceid=6107253;
+delete from programinstance where trackedentityinstanceid=6106933;
+
+
+select * from programinstance where organisationunitid in(select organisationunitid from organisationunit where path ilike '%vMMvZfLtNus%');
+
+-- Slow query on Etl upgrade, takes 8 seconds then validations runs, optimize this
+select 
+    TE.trackedentityid,
+    TE.uid,
+    TE.created,
+    TE.lastupdated,
+    TE.createdatclient,
+    TE.lastupdatedatclient,
+    TE.inactive,
+    TE.potentialduplicate,
+    TE.deleted,
+    TE.trackedentitytypeid
+FROM 
+    (SELECT DISTINCT 
+    TE.trackedentityid as trackedentityid,
+    TE.trackedentitytypeid as trackedentitytypeid,
+    TE.uid as uid,
+    TE.created as created,
+    TE.lastupdated as lastupdated,
+    TE.createdatclient as createdatclient,
+    TE.lastupdatedatclient as lastupdatedatclient,
+    TE.inactive as inactive,
+    TE.potentialduplicate as potentialduplicate,
+    TE.deleted as deleted
+    FROM trackedentity TE 
+    INNER JOIN program P  ON P.trackedentitytypeid = TE.trackedentitytypeid AND P.programid IN (17997, 17631, 347476, 8558, 15797, 175093, 522564251, 15143, 522839043, 522637978, 522726208, 521917622, 522837893, 523254128, 521914217)
+    INNER JOIN trackedentityattributevalue "aihxG1tTqba" ON "aihxG1tTqba".trackedentityattributeid = 15233 AND "aihxG1tTqba".trackedentityid = TE.trackedentityid AND lower("aihxG1tTqba".value) = '109601-5/kk/2025/0'
+    LEFT JOIN trackedentityprogramowner PO ON  PO.trackedentityid = TE.trackedentityid AND P.programid = PO.programid
+    INNER JOIN organisationunit OU ON OU.organisationunitid = COALESCE(PO.organisationunitid, TE.organisationunitid) AND OU.organisationunitid IN (5065)  where TE.trackedentitytypeid = 16 and TE.deleted IS FALSE
+    ORDER BY TE.trackedentityid desc LIMIT 50 OFFSET 0 ) TE 
+ORDER BY TE.trackedentityid desc;
+
+
+
+
+-- optmized query, takes 2 seconds
+SELECT 
+    TE.trackedentityid,
+    TE.uid,
+    TE.created,
+    TE.lastupdated,
+    TE.createdatclient,
+    TE.lastupdatedatclient,
+    TE.inactive,
+    TE.potentialduplicate,
+    TE.deleted,
+    TE.trackedentitytypeid
+FROM 
+    trackedentity TE 
+WHERE 
+    TE.trackedentitytypeid = 16
+    AND TE.deleted IS FALSE
+    AND EXISTS (
+        SELECT 1
+        FROM trackedentityattributevalue TEAV
+        WHERE TEAV.trackedentityid = TE.trackedentityid
+        AND TEAV.trackedentityattributeid = 15233
+        AND lower(TEAV.value) = '109601-5/kk/2025/0'
+    )
+    AND EXISTS (
+        SELECT 1
+        FROM program P
+        LEFT JOIN trackedentityprogramowner PO ON PO.trackedentityid = TE.trackedentityid AND P.programid = PO.programid
+        WHERE P.trackedentitytypeid = TE.trackedentitytypeid
+        AND P.programid IN (17997, 17631, 347476, 8558, 15797, 175093, 522564251, 15143, 522839043, 522637978, 522726208, 521917622, 522837893, 523254128, 521914217)
+        AND COALESCE(PO.organisationunitid, TE.organisationunitid) IN (5065)
+    )
+ORDER BY TE.trackedentityid DESC
+LIMIT 50;
+
+
+-- Call #1
+-- When api call with program only, it includes 1 program, hence takes 2 seconds
+-- ../api/41/tracker/trackedEntities?program=tj4u1ip0tTF&orgUnit=SuoqM5pXPWG&filter=aihxG1tTqba:EQ:109601-5//KK//2025//0
+select 
+    TE.trackedentityid,
+    TE.uid,
+    TE.created,
+    TE.lastupdated,
+    TE.createdatclient,
+    TE.lastupdatedatclient,
+    TE.inactive,
+    TE.potentialduplicate,
+    TE.deleted,
+    TE.trackedentitytypeid
+FROM 
+    (SELECT DISTINCT
+    TE.trackedentityid as trackedentityid,
+    TE.trackedentitytypeid as trackedentitytypeid,
+    TE.uid as uid,
+    TE.created as created,
+    TE.lastupdated as lastupdated,
+    TE.createdatclient as createdatclient,
+    TE.lastupdatedatclient as lastupdatedatclient,
+    TE.inactive as inactive,
+    TE.potentialduplicate as potentialduplicate,
+    TE.deleted as deleted
+    FROM trackedentity TE 
+    INNER JOIN program P  ON P.trackedentitytypeid = TE.trackedentitytypeid 
+    INNER JOIN trackedentityattributevalue "aihxG1tTqba" ON "aihxG1tTqba".trackedentityattributeid = 15233 AND "aihxG1tTqba".trackedentityid = TE.trackedentityid AND lower("aihxG1tTqba".value) = '109601-5/kk/2025/0'
+    INNER JOIN trackedentityprogramowner PO ON PO.programid = 521914217 AND PO.trackedentityid = TE.trackedentityid  AND P.programid = PO.programid 
+    INNER JOIN organisationunit OU ON OU.organisationunitid = PO.organisationunitid AND OU.organisationunitid IN (5065)  
+    where TE.deleted IS FALSE  and EXISTS (
+        SELECT 
+        EN.trackedentityid 
+        FROM enrollment EN 
+        WHERE EN.trackedentityid = TE.trackedentityid AND EN.programid = 521914217 AND EN.deleted is false ) 
+        ORDER BY TE.trackedentityid desc LIMIT 50 OFFSET 0 ) TE 
+    ORDER BY TE.trackedentityid desc
+
+
+-- Call #2
+-- When api call with trackedentitytype, it includes all programs associated with it, hence taking long, for us 8 seconds
+-- ../api/41/tracker/trackedEntities?trackedEntityType=MCPQUTHX1Ze&orgUnit=SuoqM5pXPWG&filter=aihxG1tTqba:EQ:109601-5//KK//2025//0
+select 
+    TE.trackedentityid,
+    TE.uid,
+    TE.created,
+    TE.lastupdated,
+    TE.createdatclient,
+    TE.lastupdatedatclient,
+    TE.inactive,
+    TE.potentialduplicate,
+    TE.deleted,
+    TE.trackedentitytypeid
+FROM 
+    (SELECT DISTINCT 
+    TE.trackedentityid as trackedentityid,
+    TE.trackedentitytypeid as trackedentitytypeid,
+    TE.uid as uid,
+    TE.created as created,
+    TE.lastupdated as lastupdated,
+    TE.createdatclient as createdatclient,
+    TE.lastupdatedatclient as lastupdatedatclient,
+    TE.inactive as inactive,
+    TE.potentialduplicate as potentialduplicate,
+    TE.deleted as deleted
+    FROM trackedentity TE 
+    -- INNER JOIN program P  ON P.trackedentitytypeid = TE.trackedentitytypeid AND P.programid IN (17997, 17631, 347476, 8558, 15797, 175093, 522564251, 15143, 522839043, 522637978, 522726208, 521917622, 522837893, 523254128, 521914217)
+    INNER JOIN program P  ON P.trackedentitytypeid = TE.trackedentitytypeid AND P.programid IN (521914217)
+    INNER JOIN trackedentityattributevalue "aihxG1tTqba" ON "aihxG1tTqba".trackedentityattributeid = 15233 AND "aihxG1tTqba".trackedentityid = TE.trackedentityid AND lower("aihxG1tTqba".value) = '109601-5/kk/2025/0'
+    LEFT JOIN trackedentityprogramowner PO ON  PO.trackedentityid = TE.trackedentityid AND P.programid = PO.programid
+    INNER JOIN organisationunit OU ON OU.organisationunitid = COALESCE(PO.organisationunitid, TE.organisationunitid) AND OU.organisationunitid IN (5065)  where TE.trackedentitytypeid = 16 and TE.deleted IS FALSE
+    ORDER BY TE.trackedentityid desc LIMIT 50 OFFSET 0 ) TE 
+ORDER BY TE.trackedentityid desc;
