@@ -14,8 +14,23 @@ delete from trackedentityattributevalueaudit where trackedentityinstanceid in(se
 delete from relationship where relationshipid in(select relationshipid from relationshipitem where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance));
 delete from relationshipitem where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance);
 truncate relationship cascade;
+delete from programownershiphistory where trackedentityinstanceid in(select trackedentityinstanceid from trackedentityinstance);
 delete from trackedentityinstance where organisationunitid in(select organisationunitid from organisationunit);
 delete from programinstance where organisationunitid in(select organisationunitid from organisationunit);
+-- for v2.41+
+DELETE FROM trackedentityattributevalueaudit;
+DELETE FROM trackedentityattributevalue;
+DELETE FROM trackedentitydatavalueaudit;
+DELETE FROM event;
+-- Delete enrollments but retain the ones that are system generated, event programs will fail to register new cases
+DELETE FROM enrollment WHERE storedby <> 'system-process';
+-- DELETE FROM enrollment;
+DELETE FROM trackedentityprogramowner;
+DELETE FROM trackedentityaudit;
+DELETE FROM trackedentity;
+
+
+
 
 
 -- Delete tracker cases by organisationUnit parent 

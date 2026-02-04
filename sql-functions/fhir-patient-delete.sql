@@ -23,6 +23,7 @@ BEGIN
     DELETE FROM hfj_spidx_string WHERE res_id = v_res_id;
     DELETE FROM hfj_spidx_token WHERE res_id = v_res_id;
     DELETE FROM hfj_spidx_date WHERE res_id = v_res_id;
+    DELETE FROM hfj_spidx_quantity WHERE res_id = v_res_id;
     DELETE FROM hfj_res_link WHERE target_resource_id = v_res_id;
     DELETE FROM hfj_resource 
     WHERE res_id IN (
@@ -39,3 +40,4 @@ $$ LANGUAGE plpgsql;
 
 
 -- Run the sql function like this SELECT delete_fhir_patient_resources('HCR-F-00298-4102004');
+-- Run the sql function like this SELECT delete_fhir_patient_resources('HCR-M-562317-15042010');

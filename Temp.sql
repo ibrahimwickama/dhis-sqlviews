@@ -972,3 +972,145 @@ FROM
     INNER JOIN organisationunit OU ON OU.organisationunitid = COALESCE(PO.organisationunitid, TE.organisationunitid) AND OU.organisationunitid IN (5065)  where TE.trackedentitytypeid = 16 and TE.deleted IS FALSE
     ORDER BY TE.trackedentityid desc LIMIT 50 OFFSET 0 ) TE 
 ORDER BY TE.trackedentityid desc;
+
+
+="UPDATE salesorderproductquantity SET sellingprice="&B2&" WHERE productid="&A2&";"
+="SELECT delete_fhir_patient_resources('"&A2&"');"
+
+
+-- MDA Tools data deletion 
+delete from datavalueaudit where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid in('o9JK4yCOAKJ','zO1DZvSxjGb','z4U7EKA2xrl','AJFFHhhzsps','WK9L7sy2VBm','mJZjUrvLXHZ','o8H8BXjhW7Z')));
+delete from datavalue where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid in('o9JK4yCOAKJ','zO1DZvSxjGb','z4U7EKA2xrl','AJFFHhhzsps','WK9L7sy2VBm','mJZjUrvLXHZ','o8H8BXjhW7Z')));
+
+-- MDA Tools data deletion 
+delete from datavalueaudit where dataelementid in(select dataelementid from dataelement where uid in('vK05NkeyyzG','w8loeYwaTPX','uRvjASErsOa','mkBPo0aDaeJ','iVCXX9SGhXz','BlKLEPKk9Hi','OGQBVR6RAVY','RWs3Ci3VmNd','bKQA5fuWBqc','PIKFSRwROBu','kSrQKCd8KpY','maJDfBIa1Ey','iJo9MqDpt8Y','ToUWX1HZGQk','RZTP6nUjpWk','wOcJ0RebOug','KEPWLibYpBX','NCGUow3ui4n','mF6Vi9MZy2J','WtBcEOXPGF8','J7BpPwpzmMZ','hBynouyoHNG','dfbJD3LwcMA','rZxe5su2m4h','JayDIlz6A71','IbI2g1w1k06','FeAJqi8apWJ','RxZw9tJWmGr','aulxgph2YAa','tdBPPvp1erx','v1dWVnY1CXN','M4BcTCnWmOm','IPqkoZdE4ea','imORbzFejrp'));
+delete from datavalue where dataelementid in(select dataelementid from dataelement where uid in('vK05NkeyyzG','w8loeYwaTPX','uRvjASErsOa','mkBPo0aDaeJ','iVCXX9SGhXz','BlKLEPKk9Hi','OGQBVR6RAVY','RWs3Ci3VmNd','bKQA5fuWBqc','PIKFSRwROBu','kSrQKCd8KpY','maJDfBIa1Ey','iJo9MqDpt8Y','ToUWX1HZGQk','RZTP6nUjpWk','wOcJ0RebOug','KEPWLibYpBX','NCGUow3ui4n','mF6Vi9MZy2J','WtBcEOXPGF8','J7BpPwpzmMZ','hBynouyoHNG','dfbJD3LwcMA','rZxe5su2m4h','JayDIlz6A71','IbI2g1w1k06','FeAJqi8apWJ','RxZw9tJWmGr','aulxgph2YAa','tdBPPvp1erx','v1dWVnY1CXN','M4BcTCnWmOm','IPqkoZdE4ea','imORbzFejrp'));
+
+
+select * from validationrule where uid='NnzX6R3pFdG';
+delete from validationresult where validationruleid=83119;
+TRUNCATE validationresult;
+
+
+SELECT periodid, iso, startdate, enddate FROM _periodstructure WHERE startdate >= '2025-01-01' AND enddate <= '2025-12-31';
+SELECT COUNT(*) FROM datavalue WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('egmmeobrQXV','yDg6ZxE0NLg')) AND periodid IN(SELECT periodid FROM _periodstructure WHERE startdate >= '2025-01-01' AND enddate <= '2025-12-31');
+DELETE FROM datavalue WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('egmmeobrQXV','yDg6ZxE0NLg')) AND periodid IN(SELECT periodid FROM _periodstructure WHERE startdate >= '2025-01-01' AND enddate <= '2025-12-31');
+
+
+
+copy(select dataelement.uid as dataelement,
+_periodstructure.iso as period,
+organisationunit.uid as orgunit,
+coc1.uid as categoryoptioncombouid ,
+coc2.uid as attributeoptioncombouid,
+datavalue.value as value,
+datavalue.storedby as storedby,
+date(datavalue.lastupdated) as lastupdated,
+datavalue.comment as comment,
+datavalue.followup as followup,
+datavalue.deleted as deleted
+from datavalue inner join dataelement using(dataelementid) 
+inner join _periodstructure on _periodstructure.periodid = datavalue.periodid  
+inner join organisationunit on (organisationunit.organisationunitid=datavalue.sourceid) 
+inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalue.categoryoptioncomboid 
+inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalue.attributeoptioncomboid 
+where datavalue.dataelementid 
+  in(select dataelementid 
+     from datasetelement 
+     where datasetid 
+       in(select datasetid 
+         from dataset where uid in('FLR8w9ntW1R'))) 
+         and datavalue.periodid in(select periodid from period where startdate >= '2022-01-01' and enddate <= '2024-12-31')) to '/tmp/population2022_24.csv' with csv header;
+
+-- Retrive data from datavalue audit table
+copy(select dataelement.uid as dataelement,
+_periodstructure.iso as period,
+organisationunit.uid as orgunit,
+coc1.uid as categoryoptioncombouid ,
+coc2.uid as attributeoptioncombouid,
+datavalueaudit.value as value,
+datavalueaudit.modifiedby as storedby,
+date(datavalueaudit.created) as lastupdated
+-- datavalueaudit.comment as comment,
+-- datavalueaudit.followup as followup,
+-- datavalueaudit.deleted as deleted
+from datavalueaudit inner join dataelement using(dataelementid) 
+inner join _periodstructure on _periodstructure.periodid = datavalueaudit.periodid  
+inner join organisationunit on (organisationunit.organisationunitid=datavalueaudit.organisationunitid) 
+inner join categoryoptioncombo coc1 on coc1.categoryoptioncomboid=datavalueaudit.categoryoptioncomboid 
+inner join categoryoptioncombo coc2 on coc2.categoryoptioncomboid=datavalueaudit.attributeoptioncomboid 
+where datavalueaudit.dataelementid 
+  in(select dataelementid 
+     from datasetelement 
+     where datasetid 
+       in(select datasetid 
+         from dataset where uid in('FLR8w9ntW1R'))) 
+         and datavalueaudit.periodid in(select periodid from period where startdate >= '2022-01-01' and enddate <= '2024-12-31')) to '/tmp/population2022_24.csv' with csv header;
+
+
+delete from datavalueaudit where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid='NDcgQeGaJC9'));
+delete from datavalue where dataelementid in(select dataelementid from datasetelement where datasetid in(select datasetid from dataset where uid='NDcgQeGaJC9'));
+/dt
+
+
+
+select periodid,startdate,enddate,daysno,weekly from _periodstructure where daysno >= 7 and weekly = '2025W36';
+
+SELECT * 
+FROM completedatasetregistration 
+WHERE sourceid = ( SELECT organisationunitid FROM organisationunit WHERE uid='ZV88z3pgy3T') 
+  AND datasetid = (SELECT datasetid FROM dataset WHERE uid='EANmPUhm7tU') 
+  AND periodid = (SELECT periodid FROM _periodstructure WHERE daysno >= 7 AND weekly='2025W36');
+
+
+-- Deleting category combination
+DELETE FROM categorycombos_optioncombos WHERE categorycomboid IN(SELECT categorycomboid FROM categorycombo WHERE uid='LJg1o2RGMsy');
+DELETE FROM categorycombos_categories WHERE categorycomboid IN(SELECT categorycomboid FROM categorycombo WHERE uid='LJg1o2RGMsy');
+DELETE FROM categorycombo WHERE uid='LJg1o2RGMsy';
+
+-- Deleting category 
+DELETE FROM categories_categoryoptions WHERE categoryid IN(SELECT categoryid FROM category WHERE uid='VWNyeYiVDev');
+DELETE FROM category WHERE uid='VWNyeYiVDev';
+
+-- Delete dataElements
+DELETE FROM visualization_datadimensionitems WHERE datadimensionitemid IN(SELECT datadimensionitemid FROM datadimensionitem WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('o096Cp4xKbe','EKaPFHVCvtv','FSHHTRJR4ae')));
+DELETE FROM datadimensionitem WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('o096Cp4xKbe','EKaPFHVCvtv','FSHHTRJR4ae'));
+DELETE FROM datavalueaudit WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('o096Cp4xKbe','EKaPFHVCvtv','FSHHTRJR4ae'));
+DELETE FROM datavalue WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('o096Cp4xKbe','EKaPFHVCvtv','FSHHTRJR4ae'));
+DELETE FROM datasetelement WHERE dataelementid IN(SELECT dataelementid FROM dataelement WHERE uid IN('o096Cp4xKbe','EKaPFHVCvtv','FSHHTRJR4ae'));
+DELETE FROM dataelement WHERE uid IN('o096Cp4xKbe','EKaPFHVCvtv','FSHHTRJR4ae');
+
+
+-- Delete dataSets 
+DELETE FROM visualization_datadimensionitems WHERE datadimensionitemid IN(SELECT datadimensionitemid FROM datadimensionitem WHERE datasetid IN(SELECT datasetid FROM dataset WHERE uid='z4U7EKA2xrl'));
+DELETE FROM datadimensionitem WHERE datasetid IN(SELECT datasetid FROM dataset WHERE uid='z4U7EKA2xrl');
+DELETE FROM completedatasetregistration WHERE datasetid IN(SELECT datasetid FROM dataset WHERE uid='z4U7EKA2xrl');
+DELETE FROM dataset WHERE uid='z4U7EKA2xrl';
+
+
+
+
+dhis=# select * from enrollment where storedby='system-process';
+ enrollmentid |     uid     |         created         |       lastupdated       |     createdatclient     |   lastupdatedatclient   |      occurreddate       |     enrollmentdate      | completeddate | followup | completedby | deleted |    storedby    | status | trackedentityid | programid | organisationunitid | geometry | createdbyuserinfo | lastupdatedbyuserinfo 
+--------------+-------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+---------------+----------+-------------+---------+----------------+--------+-----------------+-----------+--------------------+----------+-------------------+-----------------------
+            9 | SItGEocUnSN | 2025-04-29 11:15:42.769 | 2025-04-29 11:15:42.769 | 2025-04-29 11:15:42.769 | 2025-04-29 11:15:42.769 | 2025-04-29 11:15:42.769 | 2025-04-29 11:15:42.769 |               | f        |             | f       | system-process | ACTIVE |                 |     88701 |                    |          |                   | 
+            7 | xGDxXUoSU8c | 2025-04-29 10:58:25.594 | 2025-04-29 10:58:25.594 | 2025-04-29 10:58:25.594 | 2025-04-29 10:58:25.594 | 2025-04-29 10:58:25.593 | 2025-04-29 10:58:25.593 |               | f        |             | f       | system-process | ACTIVE |                 |     88643 |                    |          |                   | 
+(21 rows)
+
+
+
+INSERT INTO enrollment (enrollmentid, uid, created, lastupdated, createdatclient, lastupdatedatclient, occurreddate, enrollmentdate, completeddate, followup, completedby, deleted, storedby, status, trackedentityid, programid, organisationunitid, geometry, createdbyuserinfo, lastupdatedbyuserinfo)
+VALUES (64, 'JZM18j4B2Gd', '2025-07-08 09:13:37.618', '2025-07-08 09:13:37.618', '2025-07-08 09:13:37.618', '2025-07-08 09:13:37.618', '2025-07-08 09:13:37.617', '2025-07-08 09:13:37.617', NULL, false, NULL, false, 'system-process', 'ACTIVE', NULL, 98078, NULL, NULL, NULL, NULL);
+
+
+DELETE FROM hfj_forced_id where resource_type NOT IN('Organization');
+
+-- Delete dataset dataElements dataValues
+DELETE FROM datavalue WHERE dataelementid IN(
+    SELECT dataelementid FROM datasetelement WHERE datasetid IN(
+        SELECT datasetid FROM dataset WHERE uid='qpcwPcj8D6u'
+    )
+);
+
+
+="UPDATE organisationunit SET code='"&D9&"' WHERE code='"&E9&"';"
